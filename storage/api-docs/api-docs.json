@@ -1,0 +1,2368 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "User - Lendtick",
+        "contact": {
+            "email": "faujiakbar@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "basePath": "/",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/profile/get-address-by-user": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get List Address of User",
+                "description": "Get User Address of User",
+                "operationId": "Address",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/auth": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Authentication",
+                "description": "Login Lendtick",
+                "operationId": "auth",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "formData",
+                        "description": "Email for login Lendtick",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "Password bond to that email",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/auth/check": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Check Authentication",
+                "description": "Check Token Lendtick",
+                "operationId": "checkAuth",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/auth/refresh": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Refresh Authentication",
+                "description": "Refresh Token Lendtick",
+                "operationId": "refreshAuth",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/auth/forgot": {
+            "put": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Forgot Authentication",
+                "description": "Forgot Password",
+                "operationId": "forgotAuth",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "nik",
+                        "in": "formData",
+                        "description": "Using NIK to Forgot Password",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/auth/credentials": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Credential user",
+                "description": "Get User Lendtick Credentials",
+                "operationId": "credentialsAuth",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID user",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/mst/bank": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "Get list Bank",
+                "description": "Get Bank List",
+                "operationId": "bank",
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/profile/change-password": {
+            "put": {
+                "tags": [
+                    "Configuration"
+                ],
+                "summary": "Configuration",
+                "description": "Upload content to azure blob storage",
+                "operationId": "auth",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "old_password",
+                        "in": "query",
+                        "description": "old_password",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "new_password",
+                        "in": "query",
+                        "description": "new_password",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/company/get": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "Get list Company",
+                "description": "Get Company List",
+                "operationId": "company",
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/company/add": {
+            "post": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "Add Company",
+                "description": "Add New Company",
+                "operationId": "addCompany",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name_company",
+                        "in": "formData",
+                        "description": "Company Name",
+                        "required": true,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "id_holding",
+                        "in": "formData",
+                        "description": "Holding ID",
+                        "required": true,
+                        "type": "string",
+                        "default": "HLD001"
+                    },
+                    {
+                        "name": "is_kopnit",
+                        "in": "formData",
+                        "description": "Kopnit Boolean {1,0}",
+                        "required": true,
+                        "type": "string",
+                        "default": "1"
+                    },
+                    {
+                        "name": "loan_power",
+                        "in": "formData",
+                        "description": "Loan Power",
+                        "required": false,
+                        "type": "string",
+                        "default": "1"
+                    },
+                    {
+                        "name": "phone_number",
+                        "in": "formData",
+                        "description": "Phone Number",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "Address",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "id_bank_main",
+                        "in": "formData",
+                        "description": "Main bank type",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "account_number_bank_main",
+                        "in": "formData",
+                        "description": "Main bank account number",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "account_name_bank_main",
+                        "in": "formData",
+                        "description": "Main bank account name",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "id_bank_secondary",
+                        "in": "formData",
+                        "description": "Secondary bank type",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "account_number_bank_secondary",
+                        "in": "formData",
+                        "description": "Secondary bank account number",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "account_name_bank_secondary",
+                        "in": "formData",
+                        "description": "Secondary bank account name",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/company/edit": {
+            "put": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "Update Company",
+                "description": "Edit Exists Company",
+                "operationId": "editCompany",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_company",
+                        "in": "formData",
+                        "description": "ID of Exists Company",
+                        "required": true,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "name_company",
+                        "in": "formData",
+                        "description": "Company Name",
+                        "required": true,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "id_holding",
+                        "in": "formData",
+                        "description": "Holding ID",
+                        "required": true,
+                        "type": "string",
+                        "default": "HLD001"
+                    },
+                    {
+                        "name": "is_kopnit",
+                        "in": "formData",
+                        "description": "Kopnit Boolean {1,0}",
+                        "required": true,
+                        "type": "string",
+                        "default": "1"
+                    },
+                    {
+                        "name": "loan_power",
+                        "in": "formData",
+                        "description": "Loan Power",
+                        "required": false,
+                        "type": "string",
+                        "default": "1"
+                    },
+                    {
+                        "name": "phone_number",
+                        "in": "formData",
+                        "description": "Phone Number",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "Address",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "id_bank_main",
+                        "in": "formData",
+                        "description": "Main bank type",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "account_number_bank_main",
+                        "in": "formData",
+                        "description": "Main bank account number",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "account_name_bank_main",
+                        "in": "formData",
+                        "description": "Main bank account name",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "id_bank_secondary",
+                        "in": "formData",
+                        "description": "Secondary bank type",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "account_number_bank_secondary",
+                        "in": "formData",
+                        "description": "Secondary bank account number",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "account_name_bank_secondary",
+                        "in": "formData",
+                        "description": "Secondary bank account name",
+                        "required": false,
+                        "type": "string",
+                        "default": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/company/delete": {
+            "put": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "Delete Company",
+                "description": "Delete Exists Company",
+                "operationId": "deleteCompany",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_company",
+                        "in": "formData",
+                        "description": "ID of Exists Company",
+                        "required": true,
+                        "type": "string",
+                        "default": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/company/auth/get": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "Get list Company by Authorize",
+                "description": "Get Company List by Authorize",
+                "operationId": "authCompanyGet",
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/company/user": {
+            "get": {
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Get list user profile company",
+                "description": "Get User Profile Company",
+                "operationId": "profileCompany",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID User",
+                        "required": true,
+                        "type": "string",
+                        "default": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/dashboard/get-completed-by-sbu-hr": {
+            "get": {
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Total User Completed By SBUHR",
+                "description": "Get Total User Completed By SBUHR",
+                "operationId": "TotalUserCompletedBySBUHR",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/dashboard/get-completed-by-kopadmin": {
+            "get": {
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Total User Completed By Kop Admin",
+                "description": "Get Total User Completed By Kop Admin",
+                "operationId": "TotalUserCompletedByKopAdmin",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/dashboard/get-pending-by-sbu-hr": {
+            "get": {
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Total User Pending By SBU HR",
+                "description": "Get Total User Pending By SBU HR",
+                "operationId": "TotalUserPendingBySBUHR",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/dashboard/get-pending-by-kopadmin": {
+            "get": {
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Total User Pending By Koperasi Admin",
+                "description": "Get Total User Pending By Koperasi Admin",
+                "operationId": "TotalUserPendingByKoperasiAdmin",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/mst/domicile": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "Get List Domicile",
+                "description": "Get Domicile Status List",
+                "operationId": "mstDomicile",
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/mst/gender": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "Get List Gender",
+                "description": "Get Gender Status List",
+                "operationId": "mstGender",
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/mst/grade": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "List Grade Master",
+                "description": "list grade",
+                "operationId": "gradelist",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/all-province": {
+            "get": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Get All Propinsi",
+                "description": "Get All Propinsi",
+                "operationId": "GetAllProvince",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/get-city-by-province": {
+            "get": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Get City By Propinsi",
+                "description": "Get City By Propinsi",
+                "operationId": "GetCityByProvince",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "propinsi_kode",
+                        "in": "query",
+                        "description": "Kode Provinsi ",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/get-kec-by-province-city": {
+            "get": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Get Kecamatan By City and Provinsi",
+                "description": "Get Kecamatan By City and Provinsi",
+                "operationId": "GetKecamatanByCityAndProvince",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "propinsi_kode",
+                        "in": "query",
+                        "description": "Kode Provinsi ",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "kabkota_kode",
+                        "in": "query",
+                        "description": "Kode Kabkota ",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/get-kel-by-province-city-kec": {
+            "get": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Get Kelurahan By City and Provinsi and Kecamatan",
+                "description": "Get Kelurahan By City and Provinsi and Kecamatan",
+                "operationId": "GetKelurahanByCityAndProvinceAndKecamatan",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "propinsi_kode",
+                        "in": "query",
+                        "description": "Kode Provinsi ",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "kabkota_kode",
+                        "in": "query",
+                        "description": "Kode Kabkota ",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "kec_kode",
+                        "in": "query",
+                        "description": "Kode Kecamatan ",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/mst/marriage": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "Get List Marriage",
+                "description": "Get Marriage Status List",
+                "operationId": "mstMarriage",
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/profile/get": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get Profile",
+                "description": "Get Profile",
+                "operationId": "getprofile",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/profile/generate-nik": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Generate NIK",
+                "description": "Generate NIK",
+                "operationId": "generate-nik",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/profile/update": {
+            "put": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Update User Profile",
+                "description": "Update profile",
+                "operationId": "profileUpdate",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "birth_date",
+                        "in": "formData",
+                        "description": "Birth Date",
+                        "required": true,
+                        "type": "string",
+                        "default": "1990-01-01"
+                    },
+                    {
+                        "name": "birth_place",
+                        "in": "formData",
+                        "description": "Birth Place",
+                        "required": true,
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_religion",
+                        "in": "formData",
+                        "description": "Religion ID",
+                        "required": false,
+                        "type": "string",
+                        "default": "1"
+                    },
+                    {
+                        "name": "id_gender",
+                        "in": "formData",
+                        "description": "Gender ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "identity_id",
+                        "in": "formData",
+                        "description": "Identity Number",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone_number",
+                        "in": "formData",
+                        "description": "Phone Number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_marriage_status",
+                        "in": "formData",
+                        "description": "Marriage status ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_domicile_address_status",
+                        "in": "formData",
+                        "description": "Domicile status ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "NPWP_No",
+                        "in": "formData",
+                        "description": "Tax Number",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "mother_name",
+                        "in": "formData",
+                        "description": "Mother Name",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/profile/photo/upload": {
+            "put": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Upload photo profile",
+                "description": "Upload photo",
+                "operationId": "uploadPhotoProfile",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "personal_photo",
+                        "in": "formData",
+                        "description": "Personal Photo",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/profile/bank": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get data user profile bank",
+                "description": "Get User Profile Bank",
+                "operationId": "profileBank",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/profile/document": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get data user profile Document",
+                "description": "Get User Profile Document",
+                "operationId": "documentBank",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/profile/bank/update": {
+            "put": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Change Bank Profile",
+                "description": "Update Bank",
+                "operationId": "updateBankProfile",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_bank",
+                        "in": "formData",
+                        "description": "Bank ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "account_name_bank",
+                        "in": "formData",
+                        "description": "Account Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "account_number_bank",
+                        "in": "formData",
+                        "description": "Account Number",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/profile/document/delete": {
+            "put": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Delete Document Profile",
+                "description": "Delete Document",
+                "operationId": "deleteDocumentProfile",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_user_document",
+                        "in": "formData",
+                        "description": "ID Document",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/profile/salary": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get data user profile salary",
+                "description": "Get User Profile Salary",
+                "operationId": "profileSalary",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/profile/company": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get data user profile company",
+                "description": "Get User Profile Company",
+                "operationId": "profileCompany",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/profile/fullfillment": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Fullfilment Profile",
+                "description": "Fullfillment Profile",
+                "operationId": "fullfillmentProfile",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/mst/religion": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "Get List Religion",
+                "description": "Get Religion List",
+                "operationId": "mstReligion",
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/mst/role": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "List Role Master",
+                "description": "List Role",
+                "operationId": "rolelist",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/user-token/token-get-individu": {
+            "post": {
+                "tags": [
+                    "User Token"
+                ],
+                "summary": "Request Data Individu User have a Token",
+                "description": "Request Data Individu User have a Token",
+                "operationId": "GetIndividuData",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "formData",
+                        "description": "ID User Customer",
+                        "required": true,
+                        "type": "integer",
+                        "default": "246"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/user-token/token-get-list": {
+            "post": {
+                "tags": [
+                    "User Token"
+                ],
+                "summary": "Request Data List User have a Token",
+                "description": "Request Data List User have a Token",
+                "operationId": "GetListData",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/reg": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Registration",
+                "description": "Register Lendtick",
+                "operationId": "reg",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "company",
+                        "in": "formData",
+                        "description": "Company code from list",
+                        "required": true,
+                        "type": "string",
+                        "default": "COMP001"
+                    },
+                    {
+                        "name": "role",
+                        "in": "formData",
+                        "description": "Role id",
+                        "required": false,
+                        "type": "string",
+                        "default": "ROLE001"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone_number",
+                        "in": "formData",
+                        "description": "Phone Number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email new user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "identity_id",
+                        "in": "formData",
+                        "description": "Identitiy Number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nik",
+                        "in": "formData",
+                        "description": "Employee number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "identity_photo",
+                        "in": "formData",
+                        "description": "Base64 jpg of identity",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "company_identity_photo",
+                        "in": "formData",
+                        "description": "Base64 jpg of company identity",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "personal_photo",
+                        "in": "formData",
+                        "description": "Base64 jpg of self photo",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/otp/validate": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "OTP Validate",
+                "description": "OTP Validate Lendtick",
+                "operationId": "otp_validate",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "phone_number",
+                        "in": "formData",
+                        "description": "Phone Number",
+                        "required": true,
+                        "type": "string",
+                        "default": "0812345678"
+                    },
+                    {
+                        "name": "otp_number",
+                        "in": "formData",
+                        "description": "OTP Number",
+                        "required": true,
+                        "type": "string",
+                        "default": "2341"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/user/approve": {
+            "put": {
+                "tags": [
+                    "Flow Approval"
+                ],
+                "summary": "Approve User",
+                "description": "Register Lendtick",
+                "operationId": "aprroveUser",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "ID user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "grade",
+                        "in": "formData",
+                        "description": "Grade",
+                        "required": false,
+                        "type": "string",
+                        "default": "GRD001"
+                    },
+                    {
+                        "name": "date_in",
+                        "in": "formData",
+                        "description": "Date IN",
+                        "required": false,
+                        "type": "string",
+                        "default": "2018-12-31"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/reject": {
+            "put": {
+                "tags": [
+                    "Flow Approval"
+                ],
+                "summary": "Reject User",
+                "description": "Reject Request",
+                "operationId": "rejectUser",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "ID user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    },
+                    "400": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/deactive": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Reject User",
+                "description": "Reject Request",
+                "operationId": "rejectUser",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "ID user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    },
+                    "400": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/list": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "List User",
+                "description": "List user for BE",
+                "operationId": "userlist",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Start row",
+                        "required": true,
+                        "type": "string",
+                        "default": "0"
+                    },
+                    {
+                        "name": "length",
+                        "in": "query",
+                        "description": "Length of get row",
+                        "required": true,
+                        "type": "string",
+                        "default": "10"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort by",
+                        "required": true,
+                        "type": "string",
+                        "default": "name,asc"
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "Filter column",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "manual_filter",
+                        "in": "query",
+                        "description": "Manual Filter Column",
+                        "required": false,
+                        "type": "string",
+                        "default": "{\"nama\":\"rendhy wijaya\",\"nik\":\"2\",\"golongan\":\"GRD004\",\"tgl_masuk\":\"2019-02-01 - 2019-02-01\",\"tgl_pengajuan\":\"2019-02-01 - 2019-02-01\",\"status\":\"MBRSTS05\",\"company\":\"COMP001\"}"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/approve/list": {
+            "get": {
+                "tags": [
+                    "Flow Approval"
+                ],
+                "summary": "List Approve User",
+                "description": "Approval list for BE",
+                "operationId": "approvelist",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Start row",
+                        "required": true,
+                        "type": "string",
+                        "default": "0"
+                    },
+                    {
+                        "name": "length",
+                        "in": "query",
+                        "description": "Length of get row",
+                        "required": true,
+                        "type": "string",
+                        "default": "10"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort by",
+                        "required": true,
+                        "type": "string",
+                        "default": "name,asc"
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "Filter column",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "manual_filter",
+                        "in": "query",
+                        "description": "Manual Filter Column",
+                        "required": false,
+                        "type": "string",
+                        "default": "{\"nama\":\"rendhy wijaya\",\"no_anggota\":\"2\",\"golongan\":\"GRD004\",\"tgl_masuk\":\"2019-02-01 - 2019-02-01\",\"tgl_pengajuan\":\"2019-02-01 - 2019-02-01\",\"status\":\"MBRSTS05\",\"company\":\"COMP001\"}"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/reg/migrate": {
+            "post": {
+                "tags": [
+                    "Migrated"
+                ],
+                "summary": "Registration member migrate",
+                "description": "Register Migrated Member Lendtick",
+                "operationId": "RegMigrate",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "company",
+                        "in": "formData",
+                        "description": "Company code from list",
+                        "required": true,
+                        "type": "string",
+                        "default": "COMP001"
+                    },
+                    {
+                        "name": "role",
+                        "in": "formData",
+                        "description": "Role id",
+                        "required": false,
+                        "type": "string",
+                        "default": "ROLE001"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone_number",
+                        "in": "formData",
+                        "description": "Phone Number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "Email new user",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "identity_id",
+                        "in": "formData",
+                        "description": "Identitiy Number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nik",
+                        "in": "formData",
+                        "description": "Employee number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "password",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "identity_photo",
+                        "in": "formData",
+                        "description": "Base64 jpg of identity",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "company_identity_photo",
+                        "in": "formData",
+                        "description": "Base64 jpg of company identity",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "personal_photo",
+                        "in": "formData",
+                        "description": "Base64 jpg of self photo",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/user/detail": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Detail User",
+                "description": "Detail User",
+                "operationId": "detailUser",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    },
+                    "400": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/fcm/update": {
+            "put": {
+                "tags": [
+                    "FCM"
+                ],
+                "summary": "Detail User",
+                "description": "Token Update",
+                "operationId": "detailUser",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "formData",
+                        "description": "Contoh : IOS, Android ",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "token",
+                        "in": "formData",
+                        "description": "Contoh : qwertyuiopasdfghjkl12345678",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    },
+                    "400": {
+                        "description": "failed"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/profile/document/add": {
+            "post": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Add Document",
+                "description": "Add document profile",
+                "operationId": "addDocumentProfile",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_document_type",
+                        "in": "formData",
+                        "description": "Document type from Loan Service",
+                        "required": true,
+                        "type": "string",
+                        "default": "DOC001"
+                    },
+                    {
+                        "name": "doc_photo",
+                        "in": "formData",
+                        "description": "Base64 of image document",
+                        "required": true,
+                        "type": "string",
+                        "default": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/profile/document/update": {
+            "put": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Update Document",
+                "description": "Update document profile",
+                "operationId": "updateDocumentProfile",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "ID User",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id_document_type",
+                        "in": "formData",
+                        "description": "Document type from Loan Service",
+                        "required": true,
+                        "type": "string",
+                        "default": "DOC001"
+                    },
+                    {
+                        "name": "doc_photo",
+                        "in": "formData",
+                        "description": "Base64 of image document",
+                        "required": true,
+                        "type": "string",
+                        "default": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/salary/req": {
+            "post": {
+                "tags": [
+                    "Salary"
+                ],
+                "summary": "Salary",
+                "description": "Request Salary",
+                "operationId": "reqSalary",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "salary_amount",
+                        "in": "formData",
+                        "description": "Salary Amount",
+                        "required": true,
+                        "type": "string",
+                        "default": "5000000"
+                    },
+                    {
+                        "name": "id_grade",
+                        "in": "formData",
+                        "description": "Salary Amount",
+                        "required": true,
+                        "type": "string",
+                        "default": "GRD001"
+                    },
+                    {
+                        "name": "salary_photo",
+                        "in": "formData",
+                        "description": "Base64 jpg of salary amount",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/salary/approve/list": {
+            "get": {
+                "tags": [
+                    "Salary"
+                ],
+                "summary": "List Approve Salary User",
+                "description": "Approval salary list for BE",
+                "operationId": "salaryapprovelist",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Start row",
+                        "required": true,
+                        "type": "string",
+                        "default": "0"
+                    },
+                    {
+                        "name": "length",
+                        "in": "query",
+                        "description": "Length of get row",
+                        "required": true,
+                        "type": "string",
+                        "default": "10"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort by",
+                        "required": true,
+                        "type": "string",
+                        "default": "name,asc"
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "Filter column",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/salary/approve": {
+            "put": {
+                "tags": [
+                    "Salary"
+                ],
+                "summary": "Approve User Salary",
+                "description": "Approval user salary",
+                "operationId": "aprroveUserSalary",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "ID user salary company",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/salary/reject": {
+            "put": {
+                "tags": [
+                    "Salary"
+                ],
+                "summary": "Reject User Salary",
+                "description": "Reject user salary",
+                "operationId": "rejectUserSalary",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "formData",
+                        "description": "ID user salary company",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/mst/user/status": {
+            "get": {
+                "tags": [
+                    "Master"
+                ],
+                "summary": "List Workflow Status Master",
+                "description": "List Workflow status",
+                "operationId": "workflowstatuslist",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {},
+    "parameters": {
+        "Authorization": {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+        }
+    },
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}
