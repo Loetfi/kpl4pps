@@ -23,25 +23,26 @@ class LoginController extends Controller
         //
     }
 
+
     /**
     * @SWG\Post(
-    *     path="/auth",
+    *     path="/projekan/kpl4pps/public/login",
     *     consumes={"multipart/form-data"},
-    *     description="Login Lendtick",
+    *     description="Login",
     *     operationId="auth",
     *     consumes={"application/x-www-form-urlencoded"},
     *     produces={"application/json"},
     *     @SWG\Parameter(
-    *         description="Email for login Lendtick",
+    *         description="NIK for login",
     *         in="formData",
-    *         name="username",
+    *         name="nik",
     *         required=true,
     *         type="string"
     *     ),
     *     @SWG\Parameter(
-    *         description="Password bond to that email",
+    *         description="PIN",
     *         in="formData",
-    *         name="password",
+    *         name="pin",
     *         required=true,
     *         type="string"
     *     ), 
@@ -49,12 +50,14 @@ class LoginController extends Controller
     *         response="200",
     *         description="successful"
     *     ),
-    *     summary="Authentication",
+    *     summary="Login",
     *     tags={
     *         "Authentication"
     *     }
     * )
     * */
+
+   
     public function login(Request $request){
         try{ 
 

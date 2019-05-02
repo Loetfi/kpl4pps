@@ -22,26 +22,47 @@ class RegisterController extends Controller
     {
         //
     }
-
+    
     /**
     * @SWG\Post(
-    *     path="/auth",
+    *     path="/projekan/kpl4pps/public/register",
     *     consumes={"multipart/form-data"},
-    *     description="Login Lendtick",
-    *     operationId="auth",
+    *     description="Register",
+    *     operationId="register",
     *     consumes={"application/x-www-form-urlencoded"},
     *     produces={"application/json"},
     *     @SWG\Parameter(
-    *         description="Email for login Lendtick",
+    *         description="Nama",
     *         in="formData",
-    *         name="username",
+    *         name="nama",
     *         required=true,
     *         type="string"
     *     ),
     *     @SWG\Parameter(
-    *         description="Password bond to that email",
+    *         description="Tempat Lahir",
     *         in="formData",
-    *         name="password",
+    *         name="tmplahir",
+    *         required=true,
+    *         type="string"
+    *     ), 
+    *     @SWG\Parameter(
+    *         description="Tanggal Lahir",
+    *         in="formData",
+    *         name="tgllahir",
+    *         required=true,
+    *         type="string"
+    *     ), 
+    *     @SWG\Parameter(
+    *         description="Gender",
+    *         in="formData",
+    *         name="gender",
+    *         required=true,
+    *         type="string"
+    *     ), 
+    *     @SWG\Parameter(
+    *         description="Agama ID",
+    *         in="formData",
+    *         name="agamaid",
     *         required=true,
     *         type="string"
     *     ), 
@@ -49,12 +70,13 @@ class RegisterController extends Controller
     *         response="200",
     *         description="successful"
     *     ),
-    *     summary="Authentication",
+    *     summary="Register Anggota Baru",
     *     tags={
     *         "Authentication"
     *     }
     * )
     * */
+
     public function register(Request $request){
         try { 
 
@@ -79,7 +101,7 @@ class RegisterController extends Controller
                 'kabupatenid'   => '20100321-200826278',
                 'kelompokid'    => '20180117-155755',
                 'tmplahir'      => $request->tmplahir,
-                'tgllahir'      => $request->tgllahir,
+                'tgllahir'      => date('Y-m-d',strtotime($request->tgllahir)),
                 'gender'        => $request->gender,
                 'pekerjaanid'   => '20090628-000706',
                 'agamaid'       => '20130709-191250',

@@ -20,9 +20,9 @@ class VersionsController extends Controller
      *     schemes={"http","https"},
      *     @SWG\Info(
      *         version="1.0.0",
-     *         title="User - Lendtick",
+     *         title="User",
      *         @SWG\Contact(
-     *             email="faujiakbar@gmail.com"
+     *             email="lutfi@awanesia.com"
      *         ),
      *     ),
      *     @SWG\SecurityScheme(

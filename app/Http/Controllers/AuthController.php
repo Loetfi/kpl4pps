@@ -29,38 +29,6 @@ class AuthController extends Controller
         //
     }
 
-    /**
-    * @SWG\Post(
-    *     path="/auth",
-    *     consumes={"multipart/form-data"},
-    *     description="Login Lendtick",
-    *     operationId="auth",
-    *     consumes={"application/x-www-form-urlencoded"},
-    *     produces={"application/json"},
-    *     @SWG\Parameter(
-    *         description="Email for login Lendtick",
-    *         in="formData",
-    *         name="username",
-    *         required=true,
-    *         type="string"
-    *     ),
-    *     @SWG\Parameter(
-    *         description="Password bond to that email",
-    *         in="formData",
-    *         name="password",
-    *         required=true,
-    *         type="string"
-    *     ), 
-    *     @SWG\Response(
-    *         response="200",
-    *         description="successful"
-    *     ),
-    *     summary="Authentication",
-    *     tags={
-    *         "Authentication"
-    *     }
-    * )
-    * */
     public function auth(Request $request, hash $hash){
         $credentials = $request->only('username', 'password'); // grab credentials from the request
 
@@ -117,24 +85,7 @@ class AuthController extends Controller
 
         return response()->json(Api::response(true,'Success Login',['token' => "Bearer $token", "is_new_user" => $data->is_new_user, "id_role_master" => $data->id_role_master]));
     }
-
-    /**
-    * @SWG\Get(
-    *     path="/auth/check",
-    *     description="Check Token Lendtick",
-    *     operationId="checkAuth",
-    *     produces={"application/json"},
-    *     security={{"Bearer":{}}},
-    *     @SWG\Response(
-    *         response="200",
-    *         description="successful"
-    *     ),
-    *     summary="Check Authentication",
-    *     tags={
-    *         "Authentication"
-    *     }
-    * )
-    * */
+ 
     public function check(Request $request){
         try {
             // set request to parser
@@ -159,23 +110,7 @@ class AuthController extends Controller
         return response()->json(Api::response(true,"Valid Token",$data));
     }
 
-    /**
-    * @SWG\Get(
-    *     path="/auth/refresh",
-    *     description="Refresh Token Lendtick",
-    *     operationId="refreshAuth",
-    *     produces={"application/json"},
-    *     security={{"Bearer":{}}},
-    *     @SWG\Response(
-    *         response="200",
-    *         description="successful"
-    *     ),
-    *     summary="Refresh Authentication",
-    *     tags={
-    *         "Authentication"
-    *     }
-    * )
-    * */
+    
     public function refresh(Request $request){
         try{
             JWTAuth::parser()->setRequest($request);
@@ -188,29 +123,7 @@ class AuthController extends Controller
         return response()->json(Api::response(false,'Token refresh',['token'=>'Bearer '.$token]), 200);
     }
 
-    /**
-    * @SWG\Put(
-    *     path="/auth/forgot",
-    *     description="Forgot Password",
-    *     operationId="forgotAuth",
-    *     produces={"application/json"},
-    *     @SWG\Parameter(
-    *         description="Using NIK to Forgot Password",
-    *         in="formData",
-    *         name="nik",
-    *         required=true,
-    *         type="string"
-    *     ), 
-    *     @SWG\Response(
-    *         response="200",
-    *         description="successful"
-    *     ),
-    *     summary="Forgot Authentication",
-    *     tags={
-    *         "Authentication"
-    *     }
-    * )
-    * */
+   
     public function forgot(Request $request, hash $hash){
         try{
             $this->validate($request,['nik' => 'required']);
@@ -253,30 +166,7 @@ class AuthController extends Controller
         return response()->json(Api::response(false,'missing parameter'), 400);
     }
 
-    /**
-    * @SWG\Get(
-    *     path="/auth/credentials",
-    *     description="Get User Lendtick Credentials",
-    *     operationId="credentialsAuth",
-    *     produces={"application/json"},
-    *     security={{"Bearer":{}}},
-    *     @SWG\Parameter(
-    *         description="ID user",
-    *         in="query",
-    *         name="id",
-    *         required=false,
-    *         type="string"
-    *     ),
-    *     @SWG\Response(
-    *         response="200",
-    *         description="successful"
-    *     ),
-    *     summary="Credential user",
-    *     tags={
-    *         "Authentication"
-    *     }
-    * )
-    * */
+   
     public function credentials(Request $request){
         try{
             $res = [];
