@@ -26,6 +26,17 @@ $router->get('/api', function () use ($router) {
 $router->post('/login', 'LoginController@login');
 $router->post('/register', 'RegisterController@register');
 
+// travel
+$router->post('/travel/pesawat', 'TravelController@pesawat');
+$router->post('/travel/hotel', 'TravelController@hotel');
+$router->post('/travel/kereta', 'TravelController@kereta');
+$router->post('/travel/bus', 'TravelController@bus');
+$router->post('/travel/shuttle', 'TravelController@shuttle');
+
+// pulsa / paket data
+$router->post('/pulsa', 'PulsaPaketController@pulsa');
+$router->post('/paketdata', 'PulsaPaketController@paketdata');
+
 $router->post('/auth', 'AuthController@auth');
 $router->get('/auth/check', 'AuthController@check');
 $router->get('/auth/refresh', 'AuthController@refresh');
