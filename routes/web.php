@@ -41,7 +41,10 @@ $router->post('/paketdata', 'PulsaPaketController@paketdata');
 $router->post('/all-layanan', 'LayananController@all');
 
 // agama 
-$router->post('/master/agama', 'AgamaController@data');
+$router->get('/master/agama', 'AgamaController@data');
+
+// data 
+$router->get('/data/order_pesawat', 'DTOrderPesawatController@getData');
 
 $router->post('/auth', 'AuthController@auth');
 $router->get('/auth/check', 'AuthController@check');
