@@ -37,6 +37,12 @@ $router->post('/travel/shuttle', 'TravelController@shuttle');
 $router->post('/pulsa', 'PulsaPaketController@pulsa');
 $router->post('/paketdata', 'PulsaPaketController@paketdata');
 
+// layanan menu beranda 
+$router->post('/all-layanan', 'LayananController@all');
+
+// agama 
+$router->post('/master/agama', 'AgamaController@data');
+
 $router->post('/auth', 'AuthController@auth');
 $router->get('/auth/check', 'AuthController@check');
 $router->get('/auth/refresh', 'AuthController@refresh');
