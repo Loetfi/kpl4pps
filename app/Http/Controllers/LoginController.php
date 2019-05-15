@@ -82,6 +82,7 @@ class LoginController extends Controller
             if ($check) {
                 $data = $check;
             } else {
+                $res = 0;
                 $Message = 'Anggota tidak ditemukan';
                 $code = 400;
             }
@@ -117,6 +118,7 @@ class LoginController extends Controller
         if ($check) {
             $data = $check;
         } else {
+            $res = 0;
             $Message = 'User tidak ditemukan';
             $code = 400;
         }
