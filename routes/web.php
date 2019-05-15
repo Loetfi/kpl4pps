@@ -56,6 +56,7 @@ $router->get('/master/stasiun', 'StasiunController@data');
 
 // berita 
 $router->get('/berita', 'BeritaController@data');
+$router->get('/berita/detail', 'BeritaController@detail');
 
 
 
