@@ -50,6 +50,7 @@ $router->get('/all-layanan', 'LayananController@all');
 // master
 $router->get('/master/agama', 'AgamaController@data');
 $router->get('/master/bandara', 'PesawatController@bandara');
+$router->get('/master/kota', 'KotaController@kota');
 
 
 
