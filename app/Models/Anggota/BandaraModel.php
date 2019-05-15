@@ -11,10 +11,11 @@ class BandaraModel extends Model {
 
 	protected $table = 'apps_bandara_indonesia';
     // protected $dates = ['deleted_at'];
-    // protected $primaryKey = 'id_authorization_company';
+    // protected $primaryKey = 'id';
+    public $incrementing = false;
 
 	protected $fillable = [
-		'code',
+		'id',
 		'lat',
 		'lot',
 		'name',

@@ -14,7 +14,7 @@ class PesawatController extends Controller
 	public function bandara(Request $request){
 		try { 
 
-			$data_res = BandaraModel::select('code','name')->orderby('name','asc')->get();
+			$data_res = BandaraModel::select('id','name as nama')->orderby('name','asc')->get();
 
 			$Message = 'Berhasil';
 			$code = 200;
