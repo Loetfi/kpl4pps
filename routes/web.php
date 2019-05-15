@@ -54,6 +54,9 @@ $router->get('/master/kota', 'KotaController@kota');
 $router->get('/master/stasiun', 'StasiunController@data');
 
 
+// berita 
+$router->get('/berita', 'BeritaController@data');
+
 
 
 // data 
