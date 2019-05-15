@@ -47,8 +47,11 @@ $router->post('/paketdata', 'PulsaPaketController@paketdata');
 // layanan menu beranda 
 $router->get('/all-layanan', 'LayananController@all');
 
-// agama 
+// master
 $router->get('/master/agama', 'AgamaController@data');
+$router->get('/master/bandara', 'PesawatController@bandara');
+
+
 
 // data 
 $router->get('/data/order_pesawat', 'DTOrderPesawatController@getData');
