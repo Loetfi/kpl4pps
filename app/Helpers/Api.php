@@ -2,42 +2,50 @@
 
 namespace App\Helpers;
 
-Class Api {
-  public static function response($s=true,$m=null,$d=[]){
-    return ['status'=>is_bool($s)?($s?1:0):($s==1?1:0),'message'=>is_string($m)?$m:null,'data'=>$d];
-  }
+Class Api { 
 
-  public static function rstring($length = 10, $chars = '1234567890') {
+    public static function format($status, $data, $ErrorMessage){
+        $arr['status'] = !empty($status) ? $status : 0;
+        $arr['message'] = !empty($ErrorMessage) ? $ErrorMessage : '';
+        $arr['data']   = !empty($data) ? $data : '';
+        return $arr;    
+    } 
     
-    // Alpha lowercase
-    if ($chars == 'alphalower') {
-        $chars = 'abcdefghijklmnopqrstuvwxyz';
+    public static function response($s=true,$m=null,$d=[]){
+        return ['status'=>is_bool($s)?($s?1:0):($s==1?1:0),'message'=>is_string($m)?$m:null,'data'=>$d];
     }
+
+    public static function rstring($length = 10, $chars = '1234567890') {
+        
+    // Alpha lowercase
+        if ($chars == 'alphalower') {
+            $chars = 'abcdefghijklmnopqrstuvwxyz';
+        }
 
     // Numeric
-    if ($chars == 'numeric') {
-        $chars = '1234567890';
-    }
+        if ($chars == 'numeric') {
+            $chars = '1234567890';
+        }
 
     // Alpha Numeric
-    if ($chars == 'alphanumeric') {
-        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-    }
+        if ($chars == 'alphanumeric') {
+            $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        }
 
     // Hex
-    if ($chars == 'hex') {
-        $chars = 'ABCDEF1234567890';
-    }
+        if ($chars == 'hex') {
+            $chars = 'ABCDEF1234567890';
+        }
 
-    $charLength = strlen($chars)-1;
+        $charLength = strlen($chars)-1;
 
-    $randomString = "";
-    for($i = 0 ; $i < $length ; $i++)
+        $randomString = "";
+        for($i = 0 ; $i < $length ; $i++)
         {
             $randomString .= $chars[mt_rand(0,$charLength)];
         }
 
-    return $randomString;
-  }
+        return $randomString;
+    }
 }
 

@@ -24,7 +24,14 @@ $router->get('/api', function () use ($router) {
 });
 
 $router->post('/login', 'LoginController@login');
+$router->post('/login-backend', 'LoginController@backend_login');
+
+
 $router->post('/register', 'RegisterController@register');
+
+// promo
+$router->get('/promo', 'PromoController@data');
+
 
 // travel
 $router->post('/travel/pesawat', 'TravelController@pesawat');

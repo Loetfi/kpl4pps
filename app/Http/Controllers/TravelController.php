@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\Telegram;
-// use App\Models\Anggota\AnggotaModel AS AnggotaModel;
 use App\Helpers\Api;
 use App\Helpers\RestCurl;
+
+// model
+use App\Models\Anggota\OrderModel AS Order;
+use App\Models\Anggota\OrderDetailModel AS OrderDetail;
+
+
 
 class TravelController extends Controller
 {
@@ -16,31 +21,58 @@ class TravelController extends Controller
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
 			$this->validate($request, [
-				'dari'          	=> 'required',
-				'ke'      			=> 'required',
-				'penumpang'      	=> 'required',
+				'dari'          		=> 'required',
+				'ke'      				=> 'required',
+				'penumpang'      		=> 'required',
 				'nama_penumpang'      	=> 'required',
-				'waktu_kedatangan'	=> 'required',
-				'kursi_kelas'       => 'required',
-				'nama_anggota'		=> 'required',
-				'id_anggota'		=> 'required'
-			]);  
+				'waktu_keberangkatan'	=> 'required',
+				'kursi_kelas'       	=> 'required',
+				'nama_anggota'			=> 'required',
+				'id_anggota'			=> 'required'
+			]);   
+			
 
-            // return 'oke';
+			// insert header order
+			$insert_order = array(
+				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
+				'tanggal_order' => date('Y-m-d'),
+				'id_layanan' => 1,
+				'id_kategori' => 1
+			);
+			$id_order = Order::insertGetId($insert_order);
+
+
+			// insert header order detail
+			$insert_order_detail = array(
+				'id_order' 		=> $id_order,
+				'dari' 			=> $request->dari ? $request->dari : NULL,
+				'ke' 			=> $request->ke ? $request->ke : NULL,
+				'penumpang' 	=> $request->penumpang ? $request->penumpang : NULL,
+				'waktu_keberangkatan' 	=> $request->waktu_keberangkatan ? $request->waktu_keberangkatan : NULL,
+				'kursi_kelas' 	=> $request->kursi_kelas ? $request->kursi_kelas : NULL,
+				'nama_penumpang' 	=> $request->nama_penumpang ? $request->nama_penumpang : NULL,
+				// 'nama_anggota' 	=> $request->nama_anggota ? $request->nama_anggota : NULL,
+				// 'id_anggota' 	=> $request->id_anggota ? $request->id_anggota : NULL,
+			);
+			OrderDetail::insert($insert_order_detail);
+
+
+			// notif to telegram
 			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
 			$chatId = "-384536993";
-			$txt   ="#pesawat <strong>Order Baru dari Pesanan Pesawat </strong>"."\n";
+			$txt   ="#pesawat #IDORDER-".$id_order." <strong>Order Baru dari Pesanan Pesawat </strong>"."\n";
 			$txt  .=" dari ". $request->dari ." ke ".$request->ke."\n";
 			$txt .="| Penumpang : ".$request->penumpang." | "."\n";
 			$txt .="| Nama Penumpang : ".$request->nama_penumpang." | "."\n";
-			$txt .="| Waktu Kedatangan : ".$request->waktu_kedatangan." | "."\n";
+			$txt .="| Waktu Kedatangan : ".$request->waktu_keberangkatan." | "."\n";
 			$txt .="| Kursi Kelas : ".$request->kursi_kelas." | "."\n";
 			$txt .="| Dari Nama Anggota : ".$request->nama_anggota." | "."\n"; 
 
 			$telegram = new Telegram($token);
 			$telegram->sendMessage($chatId, $txt, 'HTML');
 
-			$Message = 'Berhasil';
+
+			$Message = 'Order Pesawat Berhasil';
 			$code = 200;
 			$res = 1;
 			$data = '';
