@@ -28,7 +28,7 @@ class TravelController extends Controller
 				'waktu_keberangkatan'	=> 'required',
 				'kursi_kelas'       	=> 'required',
 				'nama_anggota'			=> 'required',
-				'id_anggota'			=> 'required'
+				// 'id_anggota'			=> 'required'
 			]);   
 			
 
@@ -99,10 +99,35 @@ class TravelController extends Controller
 				'tamu'       		=> 'required',
 				'rooms'       		=> 'required',
 				'nama_anggota'		=> 'required',
-				'id_anggota'		=> 'required'
+				// 'id_anggota'		=> 'required'
 			]);  
 
-            // return 'oke';
+
+			// insert header order
+			// $insert_order = array(
+			// 	'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
+			// 	'tanggal_order' => date('Y-m-d'),
+			// 	'id_layanan' => 1,
+			// 	'id_kategori' => 1
+			// );
+			// $id_order = Order::insertGetId($insert_order);
+
+
+			// // insert header order detail
+			// $insert_order_detail = array(
+			// 	'id_order' 		=> $id_order,
+			// 	'dari' 			=> $request->dari ? $request->dari : NULL,
+			// 	'ke' 			=> $request->ke ? $request->ke : NULL,
+			// 	'penumpang' 	=> $request->penumpang ? $request->penumpang : NULL,
+			// 	'waktu_keberangkatan' 	=> $request->waktu_keberangkatan ? $request->waktu_keberangkatan : NULL,
+			// 	'kursi_kelas' 	=> $request->kursi_kelas ? $request->kursi_kelas : NULL,
+			// 	'nama_penumpang' 	=> $request->nama_penumpang ? $request->nama_penumpang : NULL,
+			// 	// 'nama_anggota' 	=> $request->nama_anggota ? $request->nama_anggota : NULL,
+			// 	// 'id_anggota' 	=> $request->id_anggota ? $request->id_anggota : NULL,
+			// );
+			// OrderDetail::insert($insert_order_detail);
+
+            // notif instagram
 			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
 			$chatId = "-384536993";
 			$txt  = "#hotel <strong>Order Baru dari Pesanan Hotel </strong>";
@@ -143,7 +168,7 @@ class TravelController extends Controller
 				'penumpang_balita'  => 'required',
 				'waktu_kedatangan'	=> 'required',
 				'nama_anggota'		=> 'required',
-				'id_anggota'		=> 'required'
+				// 'id_anggota'		=> 'required'
 			]);  
 
             // return 'oke';
@@ -184,7 +209,7 @@ class TravelController extends Controller
 				'penumpang'  		=> 'required',
 				'waktu_kedatangan'	=> 'required',
 				'nama_anggota'		=> 'required',
-				'id_anggota'		=> 'required'
+				// 'id_anggota'		=> 'required'
 			]);  
 
             // return 'oke';
@@ -227,7 +252,7 @@ class TravelController extends Controller
 				'penumpang'  		=> 'required',
 				'waktu_kedatangan'	=> 'required',
 				'nama_anggota'		=> 'required',
-				'id_anggota'		=> 'required'
+				// 'id_anggota'		=> 'required'
 			]);  
 
             // return 'oke';
