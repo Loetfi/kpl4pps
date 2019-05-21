@@ -28,7 +28,8 @@ class TravelController extends Controller
 				'waktu_keberangkatan'	=> 'required',
 				'kursi_kelas'       	=> 'required',
 				'nama_anggota'			=> 'required',
-				// 'id_anggota'			=> 'required'
+				'telepon'				=> 'required',
+				'ekstensi'				=> 'required'
 			]);   
 			
 
@@ -37,7 +38,9 @@ class TravelController extends Controller
 				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
 				'tanggal_order' => date('Y-m-d'),
 				'id_layanan' => 1,
-				'id_kategori' => 1
+				'id_kategori' => 1,
+				'telepon'	=> $request->telepon ? $request->telepon : 0,
+				'ekstension'	=> $request->ekstensi ? $request->ekstensi : 0
 			);
 			$id_order = Order::insertGetId($insert_order);
 
@@ -75,6 +78,8 @@ class TravelController extends Controller
 			$txt .="| Waktu Keberangkatan : ".$request->waktu_keberangkatan." | "."\n";
 			$txt .="| Kursi Kelas : ".$request->kursi_kelas." | "."\n";
 			$txt .="| Dari Nama Anggota : ".$request->nama_anggota." | "."\n"; 
+			$txt .="| No Telepon : ".$request->telepon." | "."\n"; 
+			$txt .="| Ekstensi: ".$request->ekstensi." | "."\n"; 
 
 			$telegram = new Telegram($token);
 			$telegram->sendMessage($chatId, $txt, 'HTML');

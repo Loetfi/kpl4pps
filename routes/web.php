@@ -61,6 +61,8 @@ $router->get('/berita/detail', 'BeritaController@detail');
 
 // toko 
 $router->get('/toko/list', 'TokoController@data');
+$router->get('/toko/detail', 'TokoController@detail');
+$router->get('/toko/related', 'TokoController@related');
 
 
 

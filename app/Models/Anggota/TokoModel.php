@@ -12,6 +12,7 @@ class TokoModel extends Model {
     protected $table = 'apps_list_toko';
     // protected $dates = ['deleted_at'];
     // protected $primaryKey = 'id_authorization_company';
+    public $incrementing = false;
 
     protected $fillable = [
         'id',
