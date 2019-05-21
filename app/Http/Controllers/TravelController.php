@@ -41,16 +41,17 @@ class TravelController extends Controller
 			);
 			$id_order = Order::insertGetId($insert_order);
 
+			$nama_penumpang = implode(';', $request->nama_penumpang);
 
 			// insert header order detail
 			$insert_order_detail = array(
-				'id_order' 		=> $id_order,
+				'id_order' 		=> $id_order ? $id_order : 0,
 				'dari' 			=> $request->dari ? $request->dari : NULL,
 				'ke' 			=> $request->ke ? $request->ke : NULL,
 				'penumpang' 	=> $request->penumpang ? $request->penumpang : NULL,
 				'waktu_keberangkatan' 	=> $request->waktu_keberangkatan ? $request->waktu_keberangkatan : NULL,
 				'kursi_kelas' 	=> $request->kursi_kelas ? $request->kursi_kelas : NULL,
-				'nama_penumpang' 	=> $request->nama_penumpang ? $request->nama_penumpang : NULL,
+				'nama_penumpang' 	=> $nama_penumpang ? $nama_penumpang : NULL,
 				// 'nama_anggota' 	=> $request->nama_anggota ? $request->nama_anggota : NULL,
 				// 'id_anggota' 	=> $request->id_anggota ? $request->id_anggota : NULL,
 			);
@@ -63,8 +64,15 @@ class TravelController extends Controller
 			$txt   ="#pesawat #IDORDER-".$id_order." <strong>Order Baru dari Pesanan Pesawat </strong>"."\n";
 			$txt  .=" dari ". $request->dari ." ke ".$request->ke."\n";
 			$txt .="| Penumpang : ".$request->penumpang." | "."\n";
-			$txt .="| Nama Penumpang : ".$request->nama_penumpang." | "."\n";
-			$txt .="| Waktu Kedatangan : ".$request->waktu_keberangkatan." | "."\n";
+
+			$explode_penumpang = explode(';', $nama_penumpang);
+			$number = 1;
+			foreach ($explode_penumpang as $person) {
+					$txt .="| Nama Penumpang : (".$number.') '.$person." | "."\n";
+					$number++;
+			}
+
+			$txt .="| Waktu Keberangkatan : ".$request->waktu_keberangkatan." | "."\n";
 			$txt .="| Kursi Kelas : ".$request->kursi_kelas." | "."\n";
 			$txt .="| Dari Nama Anggota : ".$request->nama_anggota." | "."\n"; 
 
@@ -82,7 +90,7 @@ class TravelController extends Controller
 			$code = 400;
 			$data = '';
 		}
-		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:''),isset($code)?$code:200);
 	}
 
 	// hotel
@@ -174,7 +182,7 @@ class TravelController extends Controller
             // return 'oke';
 			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
 			$chatId = "-384536993";
-			$txt   ="#kereta <strong>Order Baru dari Pesanan Pesawat </strong>"."\n";
+			$txt   ="#kereta <strong>Order Baru dari Pesanan Kereta </strong>"."\n";
 			$txt  .=" dari ". $request->dari ." ke ".$request->ke."\n";
 			$txt .="| Penumpang : ".$request->penumpang_dewasa." | "."\n";
 			$txt .="| Waktu Kedatangan : ".$request->waktu_kedatangan." | "."\n";
