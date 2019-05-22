@@ -94,6 +94,36 @@ class TokoController extends Controller
 		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
 	}
 
+	// cari barang 
+	public function searching(Request $request){
+		try { 
+
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'nama'		=> 'required',
+				'offset'	=> 'required|integer',
+				'limit'		=> 'required|integer'
+			]);
+
+			$nama = $request->nama ? $request->nama : 0;
+
+			$data_res = TokoModel::where('nama','like','%'.$nama.'%')->orwhere('namakategori','like','%'.$nama.'%')->skip($request->offset)->take($request->limit)->get();
+			
+			$Message = 'Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = $data_res;
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
+
 	// add order
 	public function buy(Request $request){
 		try { 
