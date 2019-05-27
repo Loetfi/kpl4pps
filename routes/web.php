@@ -31,6 +31,8 @@ $router->post('/register', 'RegisterController@register');
 
 // promo
 $router->get('/promo', 'PromoController@data');
+$router->post('/promo/add', 'PromoController@add');
+$router->post('/promo/delete', 'PromoController@delete');
 
 
 // travel
