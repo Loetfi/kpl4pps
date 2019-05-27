@@ -19,5 +19,5 @@ class PromoModel extends Model {
         'position'
     ];
 
-    public $timestamps = true;
+    public $timestamps = false;
 }
