@@ -31,6 +31,27 @@ class PromoController extends Controller
 		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
 	}
 
+	// list for backend 
+	public function list(Request $request){
+		try { 
+
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$res_data = PromoModel::orderby('position','asc')->get();
+
+			$Message = 'Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = $res_data;
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
 	// add promo 
 	public function add(Request $request){
 		try { 
@@ -85,7 +106,7 @@ class PromoController extends Controller
 
 			$id = $request->id_promo ? $request->id_promo : 0;  
 			$delete = PromoModel::where('id_promo', $id)->update(['status' => 0]);
-			
+
 			$res_data = '';
 
 			$Message = 'Berhasil';

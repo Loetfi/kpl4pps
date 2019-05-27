@@ -67,7 +67,8 @@ $router->get('/toko/detail', 'TokoController@detail');
 $router->get('/toko/related', 'TokoController@related');
 $router->post('/toko/buy', 'TokoController@buy');
 $router->get('/toko/searching', 'TokoController@searching');
-
+$router->get('/toko/list_kategori', 'TokoController@list_kategori');
+$router->get('/toko/pilih_kategori', 'TokoController@pilih_kategori');
 
 
 // data 

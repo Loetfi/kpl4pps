@@ -124,6 +124,54 @@ class TokoController extends Controller
 	}
 
 
+	// kategori toko barng 
+	public function list_kategori(Request $request){
+		try { 
+			$data_res = TokoModel::select('namakategori as id' , 'namakategori as nama')->groupby('namakategori')->get();
+
+			$Message = 'Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = $data_res;
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
+	// pilih_kategori
+	public function pilih_kategori(Request $request){
+		try { 
+
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'namakategori'	=> 'required',
+				'offset'	=> 'required|integer',
+				'limit'		=> 'required|integer'
+			]);
+
+			$nama = $request->namakategori ? $request->namakategori : 0;
+
+			$data_res = TokoModel::where('namakategori','like','%'.$nama.'%')->skip($request->offset)->take($request->limit)->get();
+
+			$Message = 'Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = $data_res;
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
+
 	// add order
 	public function buy(Request $request){
 		try { 
