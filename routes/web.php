@@ -29,10 +29,17 @@ $router->post('/login-backend', 'LoginController@backend_login');
 
 $router->post('/register', 'RegisterController@register');
 
+// profile 
+$router->post('/profile/image', 'ProfileController@imageProfile');
+
+
 // promo
 $router->get('/promo', 'PromoController@data');
+$router->get('/promo/list', 'PromoController@list');
 $router->post('/promo/add', 'PromoController@add');
+$router->post('/promo/update', 'PromoController@update');
 $router->post('/promo/delete', 'PromoController@delete');
+$router->get('/promo/detail', 'PromoController@detail');
 
 
 // travel

@@ -64,10 +64,10 @@ class PromoController extends Controller
 			]);
 
 			$Url = $request->link;
-            $ImageName = time().'.jpg';
+			$ImageName = time().'.jpg';
 
-            $ResultPut = PutImage::save($Url, $ImageName);
-            if($ResultPut) $content = url($ImageName);
+			$ResultPut = PutImage::save($Url, $ImageName);
+			if($ResultPut) $content = url($ImageName);
 
 			$position = PromoModel::max('position');
 			$insert = array(
@@ -81,6 +81,61 @@ class PromoController extends Controller
 			$res_data = '';
 
 			$Message = 'Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = $res_data;
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
+	// update promo
+	public function update(Request $request){
+		try { 
+
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'link'     	=> 'required',
+				'nama'		=> 'required',
+				'status'	=> 'required|bool',
+				'position'	=> 'required',
+				'id'		=> 'required'
+			]);
+
+			$id = $request->id ? $request->id : 0;
+
+			$Url = $request->link;
+
+			if ($Url == 'no-image') {
+				$url_promo = [];
+			} else {
+				$ImageName = time().'.jpg';
+
+				$ResultPut = PutImage::save($Url, $ImageName);
+				if($ResultPut) $content = url($ImageName);
+
+				$url_promo = ['url_promo' 	=> $content];
+			}
+			
+
+			// $position = PromoModel::max('position');
+			$insert = array(
+				'nama_promo' 	=> $request->nama,
+				'status'		=> $request->status,
+				'position'		=> $request->position
+			);
+
+			$proses_update = PromoModel::where('id_promo',$id)->update(array_merge($insert,$url_promo));
+
+
+			$res_data = '';
+
+			$Message = 'Berhasil Ubah Data';
 			$code = 200;
 			$res = 1;
 			$data = $res_data;
@@ -111,6 +166,42 @@ class PromoController extends Controller
 
 			$Message = 'Berhasil';
 			$code = 200;
+			$res = 1;
+			$data = $res_data;
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
+
+	// detail promo 
+	public function detail(Request $request){
+		try { 
+
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'id_promo'  => 'required'
+			]);
+
+			$id = $request->id_promo ? $request->id_promo : 0;  
+			$res_data = PromoModel::where('id_promo', $id)->first();
+
+			if (count($res_data)>0) {
+				$res = $res_data;
+				$Message = 'Berhasil';
+				$code = 200;
+			} else {
+				$code = 400;
+				$Message = 'Data Tidak Ditemukan';
+				$res = '';
+			}
+
+			
 			$res = 1;
 			$data = $res_data;
 		} catch(Exception $e) {
