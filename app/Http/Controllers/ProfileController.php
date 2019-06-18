@@ -34,10 +34,11 @@ class ProfileController extends Controller
 			AnggotaModel::where('noanggota', $anggota_id)
 					->update(['photo' => $photo]);
 			
+			$get = AnggotaModel::where('noanggota' , $anggota_id)->select('photo')->get();
 			$Message = 'Berhasil';
 			$code = 200;
 			$res = 1;
-			$data = '';
+			$data = $get;
 		} catch(Exception $e) {
 			$res = 0;
 			$Message = $e->getMessage();
