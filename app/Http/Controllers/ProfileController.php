@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\Telegram;
-use App\Models\Anggota\AgamaModel AS AgamaModel;
+use App\Models\Anggota\AnggotaModel AS AnggotaModel;
 use App\Helpers\Api;
 use App\Helpers\RestCurl;
 use App\Helpers\PutImage;
@@ -27,17 +27,17 @@ class ProfileController extends Controller
 
 			$img = $request->image;
 			$name = $request->anggota_id;
-            
-            $success = PutImage::base64($img , $name);
 
-			if(empty($request->json())) throw New \Exception('Params not found', 500);
+			$photo = PutImage::base64($img , $name);
+			$anggota_id = $request->anggota_id ? $request->anggota_id : 0;
 
-			$data_agama = AgamaModel::select('id','nama')->orderby('nama','asc')->get();
-
+			AnggotaModel::where('noanggota', $anggota_id)
+					->update(['photo' => $photo]);
+			
 			$Message = 'Berhasil';
 			$code = 200;
 			$res = 1;
-			$data = $data_agama;
+			$data = '';
 		} catch(Exception $e) {
 			$res = 0;
 			$Message = $e->getMessage();

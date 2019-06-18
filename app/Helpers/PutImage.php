@@ -28,7 +28,7 @@ Class PutImage{
 	            $Url = base_path().'/public/'.$ImageName;
 	            $success = file_put_contents($Url, $dataC);
 
-	            return true;
+	            return url().'/'.$ImageName;
 
 			} catch (Exception $e) {
 				return false;

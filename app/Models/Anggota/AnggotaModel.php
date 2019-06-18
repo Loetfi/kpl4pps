@@ -11,7 +11,8 @@ class AnggotaModel extends Model {
 
     protected $table = 'anggota';
     // protected $dates = ['deleted_at'];
-    // protected $primaryKey = 'id_authorization_company';
+    // protected $primaryKey = 'id';
+    public $incrementing = false;
 
     protected $fillable = [
         'id',
@@ -32,8 +33,9 @@ class AnggotaModel extends Model {
         'pendidikanid',
         'anggota',
         'aktif',
-        'jenisid'
+        'jenisid',
+        'photo'
     ];
 
-    public $timestamps = true;
+    public $timestamps = false;
 }
