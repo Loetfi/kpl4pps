@@ -30,10 +30,6 @@ class ProfileController extends Controller
             
             $success = PutImage::base64($img , $name);
 
-			dd($success);
-			 // die;
-
-
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
 			$data_agama = AgamaModel::select('id','nama')->orderby('nama','asc')->get();
