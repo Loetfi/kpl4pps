@@ -29,6 +29,9 @@ $router->post('/login-backend', 'LoginController@backend_login');
 
 $router->post('/register', 'RegisterController@register');
 
+// push notif 
+$router->get('/push-notif', 'PushNotifController@push');
+
 // profile 
 $router->post('/profile/image', 'ProfileController@imageProfile');
 

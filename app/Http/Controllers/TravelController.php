@@ -134,8 +134,8 @@ class TravelController extends Controller
 				'nama_hotel'	=> $request->nama_hotel ? $request->nama_hotel : NULL,
 				'check_in'		=> $request->check_in ? $request->check_in : NULL,
 				'check_out' 	=> $request->check_out ? $request->check_out : NULL,
-				'tamu' 	=> $request->tamu ? $request->tamu : NULL,
-				'rooms' 	=> $request->rooms ? $request->rooms : NULL
+				'tamu' 			=> $request->tamu ? $request->tamu : NULL,
+				'rooms' 		=> $request->rooms ? $request->rooms : NULL
 			);
 			OrderDetail::insert($insert_order_detail);
 
@@ -200,6 +200,29 @@ class TravelController extends Controller
 			$telegram = new Telegram($token);
 			$telegram->sendMessage($chatId, $txt, 'HTML');
 
+			// insert header order
+			$insert_order = array(
+				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
+				'tanggal_order' => date('Y-m-d'),
+				'id_layanan' => 1,
+				'id_kategori' => 3
+			);
+			$id_order = Order::insertGetId($insert_order);
+
+
+			// insert header order detail
+			$insert_order_detail = array(
+				'id_order' 			=> $id_order,
+				'penumpang_dewasa'	=> $request->penumpang_dewasa ? $request->penumpang_dewasa : NULL,
+				'penumpang_balita'	=> $request->penumpang_balita ? $request->penumpang_balita : NULL,
+				'waktu_kedatangan' 	=> $request->waktu_kedatangan ? $request->waktu_kedatangan : NULL,
+			);
+			OrderDetail::insert($insert_order_detail);
+
+			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
+
+			$result = Notif::push($get_anggota->noanggota, 'Order Kereta Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
+
 			$Message = 'Berhasil';
 			$code = 200;
 			$res = 1;
@@ -239,6 +262,31 @@ class TravelController extends Controller
 
 			$telegram = new Telegram($token);
 			$telegram->sendMessage($chatId, $txt, 'HTML');
+
+
+			// insert header order
+			$insert_order = array(
+				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
+				'tanggal_order' => date('Y-m-d'),
+				'id_layanan' => 1,
+				'id_kategori' => 4
+			);
+			$id_order = Order::insertGetId($insert_order);
+
+
+			// insert header order detail
+			$insert_order_detail = array(
+				'id_order' 			=> $id_order,
+				'dari'	=> $request->dari ? $request->dari : NULL,
+				'ke'	=> $request->ke ? $request->ke : NULL,
+				'penumpang'	=> $request->penumpang ? $request->penumpang : NULL,
+				'waktu_kedatangan'	=> $request->waktu_kedatangan ? $request->waktu_kedatangan : NULL
+			);
+			OrderDetail::insert($insert_order_detail);
+
+			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
+
+			$result = Notif::push($get_anggota->noanggota, 'Order Bus Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
 
 			$Message = 'Berhasil';
 			$code = 200;
@@ -282,6 +330,32 @@ class TravelController extends Controller
 
 			$telegram = new Telegram($token);
 			$telegram->sendMessage($chatId, $txt, 'HTML');
+
+			// insert header order
+			$insert_order = array(
+				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
+				'tanggal_order' => date('Y-m-d'),
+				'id_layanan' => 1,
+				'id_kategori' => 5
+			);
+			$id_order = Order::insertGetId($insert_order);
+
+
+			// insert header order detail
+			$insert_order_detail = array(
+				'id_order' 			=> $id_order,
+				'dari'	=> $request->dari ? $request->dari : NULL,
+				'ke'	=> $request->ke ? $request->ke : NULL,
+				'nama_shuttle'	=> $request->nama_shuttle ? $request->nama_shuttle : NULL,
+				'penumpang'	=> $request->penumpang ? $request->penumpang : NULL,
+				'waktu_kedatangan'	=> $request->waktu_kedatangan ? $request->waktu_kedatangan : NULL,
+			
+		);
+			OrderDetail::insert($insert_order_detail);
+
+			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
+
+			$result = Notif::push($get_anggota->noanggota, 'Order Shuttle Bus Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
 
 			$Message = 'Berhasil';
 			$code = 200;
