@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Helpers\Telegram;
 use App\Helpers\Api;
 use App\Helpers\RestCurl;
+use App\Helpers\Notif;
 
 // model
 use App\Models\Anggota\OrderModel AS Order;
@@ -117,28 +118,28 @@ class TravelController extends Controller
 
 
 			// insert header order
-			// $insert_order = array(
-			// 	'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
-			// 	'tanggal_order' => date('Y-m-d'),
-			// 	'id_layanan' => 1,
-			// 	'id_kategori' => 1
-			// );
-			// $id_order = Order::insertGetId($insert_order);
+			$insert_order = array(
+				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
+				'tanggal_order' => date('Y-m-d'),
+				'id_layanan' => 1,
+				'id_kategori' => 2
+			);
+			$id_order = Order::insertGetId($insert_order);
 
 
-			// // insert header order detail
-			// $insert_order_detail = array(
-			// 	'id_order' 		=> $id_order,
-			// 	'dari' 			=> $request->dari ? $request->dari : NULL,
-			// 	'ke' 			=> $request->ke ? $request->ke : NULL,
-			// 	'penumpang' 	=> $request->penumpang ? $request->penumpang : NULL,
-			// 	'waktu_keberangkatan' 	=> $request->waktu_keberangkatan ? $request->waktu_keberangkatan : NULL,
-			// 	'kursi_kelas' 	=> $request->kursi_kelas ? $request->kursi_kelas : NULL,
-			// 	'nama_penumpang' 	=> $request->nama_penumpang ? $request->nama_penumpang : NULL,
-			// 	// 'nama_anggota' 	=> $request->nama_anggota ? $request->nama_anggota : NULL,
-			// 	// 'id_anggota' 	=> $request->id_anggota ? $request->id_anggota : NULL,
-			// );
-			// OrderDetail::insert($insert_order_detail);
+			// insert header order detail
+			$insert_order_detail = array(
+				'id_order' 		=> $id_order,
+				'nama_hotel'	=> $request->nama_hotel ? $request->nama_hotel : NULL,
+				'check_in'		=> $request->check_in ? $request->check_in : NULL,
+				'check_out' 	=> $request->check_out ? $request->check_out : NULL,
+				'tamu' 	=> $request->tamu ? $request->tamu : NULL,
+				'rooms' 	=> $request->rooms ? $request->rooms : NULL,
+				'nama_penumpang' 	=> $request->nama_penumpang ? $request->nama_penumpang : NULL
+			);
+			OrderDetail::insert($insert_order_detail);
+
+			$result = Notif::push($request->id_anggota , 'Order Hotel Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
 
             // notif instagram
 			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
