@@ -7,9 +7,11 @@ use App\Helpers\Telegram;
 use App\Models\Anggota\TokoModel AS TokoModel;
 use App\Helpers\Api;
 use App\Helpers\RestCurl;
+use App\Helpers\Notif;
 // model
 use App\Models\Anggota\OrderModel AS Order;
 use App\Models\Anggota\OrderDetailModel AS OrderDetail;
+use App\Models\Anggota\AnggotaModel AS Anggota;
 
 class TokoController extends Controller
 {
@@ -217,8 +219,6 @@ class TokoController extends Controller
 				OrderDetail::insert($insert_order_detail);
 			}
 
-			// die();
-
 
 			// notif to telegram
 			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
@@ -243,6 +243,10 @@ class TokoController extends Controller
 
 			$telegram = new Telegram($token);
 			$telegram->sendMessage($chatId, $txt, 'HTML');
+
+			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
+
+			$result = Notif::push($get_anggota->noanggota, 'Order Paket Data Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
 
 
 			$Message = 'Order Pesawat Berhasil';
