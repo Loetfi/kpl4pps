@@ -9,6 +9,7 @@ use App\Helpers\RestCurl;
 use App\Helpers\Notif;
 
 // model
+use App\Models\Anggota\AnggotaModel AS Anggota;
 use App\Models\Anggota\OrderModel AS Order;
 use App\Models\Anggota\OrderDetailModel AS OrderDetail;
 
@@ -138,7 +139,9 @@ class TravelController extends Controller
 			);
 			OrderDetail::insert($insert_order_detail);
 
-			$result = Notif::push($request->id_anggota , 'Order Hotel Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
+			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
+
+			$result = Notif::push($get_anggota->noanggota, 'Order Hotel Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
 
             // notif instagram
 			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
