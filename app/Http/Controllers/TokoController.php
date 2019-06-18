@@ -246,7 +246,7 @@ class TokoController extends Controller
 
 			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
 
-			$result = Notif::push($get_anggota->noanggota, 'Order Paket Data Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
+			$result = Notif::push($get_anggota->noanggota, 'Order Toko Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
 
 
 			$Message = 'Order Pesawat Berhasil';
