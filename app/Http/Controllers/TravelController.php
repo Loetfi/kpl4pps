@@ -134,8 +134,7 @@ class TravelController extends Controller
 				'check_in'		=> $request->check_in ? $request->check_in : NULL,
 				'check_out' 	=> $request->check_out ? $request->check_out : NULL,
 				'tamu' 	=> $request->tamu ? $request->tamu : NULL,
-				'rooms' 	=> $request->rooms ? $request->rooms : NULL,
-				'nama_penumpang' 	=> $request->nama_penumpang ? $request->nama_penumpang : NULL
+				'rooms' 	=> $request->rooms ? $request->rooms : NULL
 			);
 			OrderDetail::insert($insert_order_detail);
 
