@@ -39,6 +39,10 @@ $router->post('/profile/image', 'ProfileController@imageProfile');
 // riwayat
 $router->post('/riwayat/order', 'RiwayatOrderController@list');
 
+// serba usaha 
+$router->get('/serba-usaha/list', 'SerbaUsahaController@list');
+
+
 
 // promo
 $router->get('/promo', 'PromoController@data');

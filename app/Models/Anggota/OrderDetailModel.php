@@ -17,6 +17,7 @@ class OrderDetailModel extends Model {
 		'waktu_keberangkatan',
 		'kursi_kelas',
 		'nama_penumpang',
+        'nama_barang'
     ];
 
     public $timestamps = true;
