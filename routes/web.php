@@ -41,6 +41,9 @@ $router->post('/riwayat/order', 'RiwayatOrderController@list');
 
 // serba usaha 
 $router->get('/serba-usaha/list', 'SerbaUsahaController@list');
+$router->post('/serba-usaha/detail', 'SerbaUsahaController@detail');
+$router->post('/serba-usaha/submit', 'SerbaUsahaController@submit');
+
 
 
 

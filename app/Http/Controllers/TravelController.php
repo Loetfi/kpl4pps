@@ -87,6 +87,10 @@ class TravelController extends Controller
 			$telegram->sendMessage($chatId, $txt, 'HTML');
 
 
+			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
+
+			$result = Notif::push($get_anggota->noanggota, 'Order Pesawat Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
+
 			$Message = 'Order Pesawat Berhasil';
 			$code = 200;
 			$res = 1;
