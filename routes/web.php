@@ -36,6 +36,10 @@ $router->get('/push-notif', 'PushNotifController@push');
 $router->post('/profile/image', 'ProfileController@imageProfile');
 
 
+// riwayat
+$router->post('/riwayat/order', 'RiwayatOrderController@list');
+
+
 // promo
 $router->get('/promo', 'PromoController@data');
 $router->get('/promo/list', 'PromoController@list');
