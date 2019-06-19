@@ -55,6 +55,7 @@ $router->post('/travel/shuttle', 'TravelController@shuttle');
 // pulsa / paket data
 $router->post('/pulsa', 'PulsaPaketController@pulsa');
 $router->post('/paketdata', 'PulsaPaketController@paketdata');
+$router->post('/listrik-token', 'ListrikController@token');
 
 // layanan menu beranda 
 $router->get('/all-layanan', 'LayananController@all');
