@@ -66,7 +66,8 @@ class SerbaUsahaController extends Controller
 			// insert header order detail
 			$insert_order_detail = array(
 				'id_order' 		=> $id_order ? $id_order : 0,
-				'tanggal_book' 			=> $request->tanggal_book ? $request->tanggal_book : NULL
+				'tanggal_book' 	=> $request->tanggal_book ? $request->tanggal_book : NULL,
+				'no_hp' 		=> $request->telepon ? $request->telepon : NULL,
 			);
 			OrderDetail::insert($insert_order_detail);
 

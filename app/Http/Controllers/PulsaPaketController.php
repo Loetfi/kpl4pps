@@ -97,7 +97,7 @@ class PulsaPaketController extends Controller
 				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
 				'tanggal_order' => date('Y-m-d'),
 				'id_layanan' => 5,
-				'id_kategori' => 7,
+				'id_kategori' => 12,
 				'telepon'	=> $request->nohp ? $request->nohp : 0,
 				'ekstension'	=> $request->nohp ? $request->nohp : 0
 			);

@@ -56,14 +56,33 @@ class RiwayatOrderController extends Controller
 			$id_kategori = $request->id_kategori ? $request->id_kategori : 0;
 			$select = ['id_order'];
 			if ($id_layanan == '5' and $id_kategori == '6') { // topup pulsa 
-					$select = ['id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','nominal','provider'];
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','nominal','provider'];
 			} elseif ($id_layanan == '1' and $id_kategori == '1') { // pesawat 
-					$select = ['id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','dari','ke','penumpang','waktu_keberangkatan','kursi_kelas','nama_penumpang'];
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','dari','ke','penumpang','waktu_keberangkatan','kursi_kelas','nama_penumpang'];
 			} elseif ($id_layanan == '1' and $id_kategori == '2') { // hotel
-					$select = ['id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','nama_hotel','check_in','check_out','tamu','rooms'];
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','nama_hotel','check_in','check_out','tamu','rooms'];
 			} elseif ($id_layanan == '1' and $id_kategori == '3') { // kereta
-					$select = ['id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','nama_hotel','check_in','check_out','tamu','rooms'];
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','dari','ke','penumpang_dewasa','penumpang_balita','waktu_kedatangan'];
+			} elseif ($id_layanan == '1' and $id_kategori == '4') { // bus
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','dari','ke','penumpang','waktu_kedatangan'];
+			} elseif ($id_layanan == '1' and $id_kategori == '5') { // shuttle bus
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','dari','ke','penumpang','waktu_kedatangan','nama_shuttle'];
+			} elseif ($id_layanan == '2' and $id_kategori == '7') { // shuttle bus
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','nama_barang','harga_barang','id_barang','qty'];
+			} elseif ($id_layanan == '4' and $id_kategori == '10') { // sewa gedung
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','tanggal_book'];
+			} elseif ($id_layanan == '4' and $id_kategori == '11') { // sewa pemancigan
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','tanggal_book'];
+			} elseif ($id_layanan == '5' and $id_kategori == '6') { // pulsa
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','nominal','provider'];
+			} elseif ($id_layanan == '5' and $id_kategori == '12') { // paket data
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','paket','provider'];
+			} elseif ($id_layanan == '5' and $id_kategori == '8') { // token
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','nominal_token','no_meter'];
+			} elseif ($id_layanan == '5' and $id_kategori == '9') { // listrik tagihan
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','no_meter'];
 			} else {
+					// 5 6 , 5 12, 5 8 , 5 9
 				throw new \Exception("Tidak ditemukan kriteria order detail", 400);
 			}
 

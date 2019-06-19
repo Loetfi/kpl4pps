@@ -46,6 +46,11 @@ $router->post('/serba-usaha/detail', 'SerbaUsahaController@detail');
 $router->post('/serba-usaha/submit', 'SerbaUsahaController@submit');
 
 
+// simpan pinjam
+$router->get('/simpan/content-form', 'SimpanPinjamController@getContentSimpan');
+$router->get('/pinjam/content-form', 'SimpanPinjamController@getContentPinjam');
+
+
 
 
 // promo
