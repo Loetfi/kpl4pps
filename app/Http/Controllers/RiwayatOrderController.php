@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Anggota\RiwayatModel AS RiwayatModel;
+use App\Models\Anggota\RiwayatOrderDetailModel AS RiwayatDetail;
+
 use App\Helpers\Api;
 use App\Helpers\RestCurl;
 
@@ -23,6 +25,49 @@ class RiwayatOrderController extends Controller
 			$anggota_id = $request->anggota_id ? $request->anggota_id : 0;
 
 			$data_res = RiwayatModel::where('id_anggota', $anggota_id)->skip($request->offset)->take($request->limit)->orderby('tanggal_order','desc')->get();
+
+			$Message = 'Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = $data_res;
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
+	 // detail
+	public function detail(Request $request){
+		try { 
+
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'id_order'     => 'required|integer',
+				'anggota_id'   => 'required',
+			]);  
+
+			$anggota_id = $request->anggota_id ? $request->anggota_id : 0;
+			$id_order = $request->id_order ? $request->id_order : 0;
+			$id_layanan = $request->id_layanan ? $request->id_layanan : 0;
+			$id_kategori = $request->id_kategori ? $request->id_kategori : 0;
+			$select = ['id_order'];
+			if ($id_layanan == '5' and $id_kategori == '6') { // topup pulsa 
+					$select = ['id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','nominal','provider'];
+			} elseif ($id_layanan == '1' and $id_kategori == '1') { // pesawat 
+					$select = ['id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','dari','ke','penumpang','waktu_keberangkatan','kursi_kelas','nama_penumpang'];
+			} elseif ($id_layanan == '1' and $id_kategori == '2') { // hotel
+					$select = ['id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','nama_hotel','check_in','check_out','tamu','rooms'];
+			} elseif ($id_layanan == '1' and $id_kategori == '3') { // kereta
+					$select = ['id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','nama_hotel','check_in','check_out','tamu','rooms'];
+			} else {
+				throw new \Exception("Tidak ditemukan kriteria order detail", 400);
+			}
+
+			$data_res = RiwayatDetail::where('id_anggota' , $anggota_id)->where('id_order',$id_order)->where('id_layanan',$id_layanan)->select($select)->where('id_kategori',$id_kategori)->get();
 
 			$Message = 'Berhasil';
 			$code = 200;

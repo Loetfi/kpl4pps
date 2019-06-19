@@ -219,6 +219,8 @@ class TravelController extends Controller
 				'id_order' 			=> $id_order,
 				'penumpang_dewasa'	=> $request->penumpang_dewasa ? $request->penumpang_dewasa : NULL,
 				'penumpang_balita'	=> $request->penumpang_balita ? $request->penumpang_balita : NULL,
+				'dari'	=> $request->dari ? $request->dari : NULL,
+				'ke'	=> $request->ke ? $request->ke : NULL,
 				'waktu_kedatangan' 	=> $request->waktu_kedatangan ? $request->waktu_kedatangan : NULL,
 			);
 			OrderDetail::insert($insert_order_detail);
