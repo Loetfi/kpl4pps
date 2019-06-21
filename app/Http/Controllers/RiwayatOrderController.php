@@ -24,7 +24,7 @@ class RiwayatOrderController extends Controller
 
 			$anggota_id = $request->anggota_id ? $request->anggota_id : 0;
 
-			$data_res = RiwayatModel::where('id_anggota', $anggota_id)->skip($request->offset)->take($request->limit)->orderby('tanggal_order','desc')->get();
+			$data_res = RiwayatModel::where('id_anggota', $anggota_id)->skip($request->offset)->take($request->limit)->orderby('id_order','desc')->get();
 
 			$Message = 'Berhasil';
 			$code = 200;
