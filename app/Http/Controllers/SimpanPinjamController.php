@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Anggota\RiwayatModel AS RiwayatModel;
 use App\Models\Anggota\RiwayatOrderDetailModel AS RiwayatDetail;
-
+use App\Helpers\Telegram;
 use App\Helpers\Api;
 use App\Helpers\RestCurl;
+use App\Helpers\Notif;
+
+use App\Models\Anggota\AnggotaModel AS Anggota;
+use App\Models\Anggota\OrderModel AS Order;
+use App\Models\Anggota\OrderDetailModel AS OrderDetail;
 
 class SimpanPinjamController extends Controller
 {
@@ -40,6 +45,68 @@ class SimpanPinjamController extends Controller
 		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
 	}
 
+	// submit 
+	public function submitSimpanan(Request $request){
+		try { 
+
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'keterangan'        => 'required',
+				'store_ke'			=> 'required',
+				'jumlah_simpanan'	=> 'required',
+				'nama_anggota'		=> 'required',
+				'id_anggota'		=> 'required'
+			]);  
+
+            // return 'oke';
+			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
+			$chatId = "-384536993";
+			$txt   ="#simpanan <strong>Order Baru dari Simpanan </strong>"."\n";
+			$txt  .="| Keterangan : ". $request->keterangan ."\n";
+			$txt  .="| Jumlah Simpanan : ". $request->jumlah_simpanan ."\n";
+			$txt  .="| Setor Ke : ". $request->store_ke ."\n";
+			$txt .="| Dari Nama Anggota : ".$request->nama_anggota."\n"; 
+
+			$telegram = new Telegram($token);
+			$telegram->sendMessage($chatId, $txt, 'HTML');
+
+			// insert header order
+			$insert_order = array(
+				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
+				'tanggal_order' => date('Y-m-d'),
+				'id_layanan' => 3,
+				'id_kategori' => 13
+			);
+			$id_order = Order::insertGetId($insert_order);
+
+
+			// insert header order detail
+			$insert_order_detail = array(
+				'id_order' 			=> $id_order,
+				'keterangan'	=> $request->keterangan ? $request->keterangan : NULL,
+				'store_ke'	=> $request->store_ke ? $request->store_ke : NULL,
+				'jumlah_simpanan'	=> $request->jumlah_simpanan ? $request->jumlah_simpanan : NULL,
+			);
+			OrderDetail::insert($insert_order_detail);
+
+			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
+
+			$result = Notif::push($get_anggota->noanggota, 'Simpanan Berhasil' , 'Data akan diproses oleh admin koperasi pegawai lemigas');
+
+			$Message = 'Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = '';
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
 	 // pinjam content
 	public function getContentPinjam(Request $request){
 		try { 
@@ -60,6 +127,68 @@ class SimpanPinjamController extends Controller
 			$code = 200;
 			$res = 1;
 			$data = $content;
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
+	// submit 
+	public function submitPinjaman(Request $request){
+		try { 
+
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'keterangan'        => 'required',
+				'nilai_pinjaman'	=> 'required',
+				'tenor'				=> 'required',
+				'nama_anggota'		=> 'required',
+				'id_anggota'		=> 'required'
+			]);  
+
+            // return 'oke';
+			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
+			$chatId = "-384536993";
+			$txt   ="#pinjaman <strong>Order Baru dari Pinjaman </strong>"."\n";
+			$txt  .="| Keterangan : ". $request->keterangan ."\n";
+			$txt  .="| Jumlah Pinjaman : ". $request->nilai_pinjaman ."\n";
+			$txt  .="| Tenor : ". $request->tenor ."\n";
+			$txt .="| Dari Nama Anggota : ".$request->nama_anggota."\n"; 
+
+			$telegram = new Telegram($token);
+			$telegram->sendMessage($chatId, $txt, 'HTML');
+
+			// insert header order
+			$insert_order = array(
+				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
+				'tanggal_order' => date('Y-m-d'),
+				'id_layanan' => 3,
+				'id_kategori' => 14
+			);
+			$id_order = Order::insertGetId($insert_order);
+
+
+			// insert header order detail
+			$insert_order_detail = array(
+				'id_order' 			=> $id_order,
+				'keterangan'	=> $request->keterangan ? $request->keterangan : NULL,
+				'tenor'	=> $request->tenor ? $request->tenor : NULL,
+				'nilai_pinjaman'	=> $request->nilai_pinjaman ? $request->nilai_pinjaman : NULL,
+			);
+			OrderDetail::insert($insert_order_detail);
+
+			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
+
+			$result = Notif::push($get_anggota->noanggota, 'Pinjaman Berhasil' , 'Data akan diproses oleh admin koperasi pegawai lemigas');
+
+			$Message = 'Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = '';
 		} catch(Exception $e) {
 			$res = 0;
 			$Message = $e->getMessage();
