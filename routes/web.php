@@ -42,7 +42,7 @@ $router->get('/riwayat/order/detail', 'RiwayatOrderController@detail');
 
 // serba usaha 
 $router->get('/serba-usaha/list', 'SerbaUsahaController@list');
-$router->post('/serba-usaha/detail', 'SerbaUsahaController@detail');
+$router->get('/serba-usaha/detail', 'SerbaUsahaController@detail');
 $router->post('/serba-usaha/submit', 'SerbaUsahaController@submit');
 
 
