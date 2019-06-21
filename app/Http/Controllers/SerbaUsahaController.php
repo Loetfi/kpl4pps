@@ -21,7 +21,7 @@ class SerbaUsahaController extends Controller
 
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
-			$data_agama = Layanan::join('apps_kategori_channel','apps_layanan.id_layanan','=','apps_kategori_channel.id_layanan')->select('nama_kategori','gambar_kategori','id_kategori') ->get();
+			$data_agama = Layanan::join('apps_kategori_channel','apps_layanan.id_layanan','=','apps_kategori_channel.id_layanan')->select('nama_kategori','gambar_kategori','id_kategori','apps_kategori_channel.id_layanan') ->get();
 
 			$Message = 'Berhasil';
 			$code = 200;
