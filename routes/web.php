@@ -37,8 +37,8 @@ $router->post('/profile/image', 'ProfileController@imageProfile');
 
 
 // riwayat
-$router->post('/riwayat/order', 'RiwayatOrderController@list');
-$router->post('/riwayat/order/detail', 'RiwayatOrderController@detail');
+$router->get('/riwayat/order', 'RiwayatOrderController@list');
+$router->get('/riwayat/order/detail', 'RiwayatOrderController@detail');
 
 // serba usaha 
 $router->get('/serba-usaha/list', 'SerbaUsahaController@list');
