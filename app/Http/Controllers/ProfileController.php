@@ -110,13 +110,18 @@ class ProfileController extends Controller
 			$check = AnggotaModel::where('username', $username);
 
 			// jika id anggota username yang sama di post, maka di allow saja 
-			$check_username =  ($check->get()->first()->username);
+			$check_username =  ($check->get()->first());
+			// dd($check_username);
 
 			if (count(($check)->where('id',$anggota_id)->get()->first())>0) {
 				// echo "username kepemilikan si id ini";
+			}  elseif(is_null($check_username)){
+				// echo "null";
 			} elseif (count($check_username)>0) {
+				// echo "gagal";
 				throw new \Exception("Usename sudah ada yang punya, ubah profil tidak dapat disimpan", 400);	
 			}
+			// die();
 
 			$update = array(
 				'username' 	=> $username,
