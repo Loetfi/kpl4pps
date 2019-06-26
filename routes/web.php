@@ -139,6 +139,8 @@ $router->group(['prefix' => 'mst'], function() use($router){
 
   // generate nik
 $router->get('/profile/generate-nik', 'ProfileController@GenerateNIK');
+$router->get('/profile/check-username', 'ProfileController@checkUsername');
+$router->post('/profile/edit', 'ProfileController@edit');
 
 $router->group(['middleware'=>['authorize']], function() use($router){
 
