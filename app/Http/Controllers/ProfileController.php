@@ -11,6 +11,7 @@ use App\Helpers\PutImage;
 // use File;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class ProfileController extends Controller
 {
@@ -65,7 +66,7 @@ class ProfileController extends Controller
 			$username = $request->username ? strtolower($request->username) : 0;
 
 			$check_username = AnggotaModel::where('username', $username)->get()->first();
-			// AnggotaModel::where('id', $anggota_id)->get()->first();
+			
 			if (sizeof($check_username)) {
 				$get =  "ada";
 			} else {
@@ -106,6 +107,16 @@ class ProfileController extends Controller
 			$alamat = $request->alamat ? $request->alamat : 0;
 			$no_hp = $request->no_hp ? $request->no_hp : 0;
 
+			$check = AnggotaModel::where('username', $username);
+
+			// jika id anggota username yang sama di post, maka di allow saja 
+			$check_username =  ($check->get()->first()->username);
+
+			if (count(($check)->where('id',$anggota_id)->get()->first())>0) {
+				// echo "username kepemilikan si id ini";
+			} elseif (count($check_username)>0) {
+				throw new \Exception("Usename sudah ada yang punya, ubah profil tidak dapat disimpan", 400);	
+			}
 
 			$update = array(
 				'username' 	=> $username,
