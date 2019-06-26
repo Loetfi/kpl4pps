@@ -78,7 +78,7 @@ class LoginController extends Controller
             $code = 200;
             $res = 1;
 
-            $check = AnggotaModel::where('noanggota',$request->nik)->where('pin',$request->pin)->get()->first();
+            $check = AnggotaModel::where('noanggota',$request->nik)->orWhere('username',$request->nik)->where('pin',$request->pin)->get()->first();
             if ($check) {
                 $data = $check;
             } else {
