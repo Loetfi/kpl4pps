@@ -113,7 +113,7 @@ class ProfileController extends Controller
 				'alamat' 	=> $alamat,
 			);
 
-			$updateProses = AnggotaModel::where('anggota_id', $anggota_id)->update($update);
+			$updateProses = AnggotaModel::where('id', $anggota_id)->update($update);
 
 			if ($updateProses) {
 				$Message = 'Berhasil';
