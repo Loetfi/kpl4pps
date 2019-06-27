@@ -57,22 +57,33 @@ class ProfileController extends Controller
 
 			$this->validate($request, [
 				// 'email'       	=> 'required',
-				// 'anggota_id'	=> 'required',
+				'anggota_id'	=> 'required',
 				'username'		=> 'required',
 				// 'no_hp'			=> 'required',
 				// 'alamat'		=> 'required'
 			]);  
 
 			$username = $request->username ? strtolower($request->username) : 0;
+			$anggota_id = $request->anggota_id ? $request->anggota_id : 0;
+			
 
-			$check_username = AnggotaModel::where('username', $username)->get()->first();
-			
-			if (sizeof($check_username)) {
-				$get =  "ada";
-			} else {
-				$get = "tidak";
-			} 
-			
+			$check = AnggotaModel::where('username', $username);
+
+			// jika id anggota username yang sama di post, maka di allow saja 
+			$check_username =  ($check->get()->first());
+			// dd($check_username);
+
+			if (count(($check)->where('id',$anggota_id)->get()->first())>0) {
+				// echo "username kepemilikan si id ini";
+				$get = 'ada';
+			}  elseif(is_null($check_username)){
+				$get = 'ada';
+				// echo "null";
+			} elseif (count($check_username)>0) {
+				// echo "gagal";
+				// throw new \Exception("Username sudah ada dimilik pengguna lain", 400);	
+				$get = 'tidak';
+			}
 			// $get = AnggotaModel::where('noanggota' , $anggota_id)->select('photo')->get();
 			$Message = 'Berhasil';
 			$code = 200;
@@ -135,7 +146,7 @@ class ProfileController extends Controller
 				$Message = 'Berhasil';
 				$code = 200;
 				$res = 1;
-				$data = [];
+				$data = AnggotaModel::where('id', $anggota_id)->get()->first();
 			} else {
 				throw new \Exception("Tidak Berhasil", 400);	
 			}
