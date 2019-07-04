@@ -115,12 +115,19 @@ class SimpanPinjamController extends Controller
 
 			$content = array(
 				'content' => [
-					'Mengisi dan melengkapi form pinjaman Online maupun Cetak',
-					'Persetujuan Admin Koperasi',
-					'Persetujuan Kepala Koperasi',
-					'Dana diterima oleh anggota'
+					'Perjanjian pinjaman ini disusun berdasarkan kesepakatan antara Koperasi Pegawai Lemigas (selanjutnya disingkat KPL) dengan Pemohon Pinjaman (selanjutnya disebut Pemohon). Perjanjian ini berlaku sejak ditandatangani dan berakhir setelah Pemohon melunasi seluruh pinjamannya.',
+					'Pemohon melunasi/mengembalikan pinjaman kepada KPL sebesar pokok pinjaman dan bunga pinjaman dalam jangka waktu yang disepakati. Cara pelunasan/angsuran pinjaman dilakukan dengan cara memotong uang pada rekening gaji Pemohon.',
+					'Apabila Pemohon mengalami mutasi/pindah tugas dari Lemigas, maka Pemohon setuju bahwa Perjanjian ini berlaku sebagai pemberian Kuasa kepada Bendahara/Pengelola Gaji tempat Pemohon bertugas/berdinas untuk memotong uang pada rekening gaji Pemohon sejumlah angsuran yang harus bayar. KPL memberitahukan secara tertulis kepada Bendahara/Pengelola Gaji tempat Pemohon bertugas/berdinas sebesar angsuran yang harus dipotong.',
+					'Pemohon menjamin bahwa Bendahara/Pengelola Gaji tempat Pemohon bertugas/berdinas dibebaskan dari segala tuntutan dalam bentuk apapun dan atau gugatan dari pihak manapun.',
+					'Apabila setelah jatuh tempo Pemohon tidak dapat melunasi seluruh atau sisa pinjaman, maka Pemohon setuju agar KPL menyerahkan jaminan/agunan (jika ada) Pemohon kepada Kantor Pelayanan Kekayaan Negara dan Lelang (KPKNL) untuk kemudian dilelang menurut ketentuan yang berlaku. ',
+					'Segala biaya yang timbul (jika ada) akibat pembayaran angsuran hutang kepada KPL dengan layanan perbankan dan/atau lelang jaminan/agunan menjadi tanggungan Pemohon.',
+					'Segala pelanggaran terhadap sebagian atau seluruh ketentuan ini menjadi tanggungan dan tanggung jawab Pemohon dengan segala konsekuensinya.'
+					// 'Mengisi dan melengkapi form pinjaman Online maupun Cetak',
+					// 'Persetujuan Admin Koperasi',
+					// 'Persetujuan Kepala Koperasi',
+					// 'Dana diterima oleh anggota'
 				],
-				'pdf_form' => 'http://sub7.ce.student.pens.ac.id/lab/dasarpemrogramangolang.pdf'
+				'pdf_form' => 'http://kpl.awanesia.com/public/FormulirPinjamanKPL(New).docx'
 			); 
 
 			$Message = 'Berhasil';
