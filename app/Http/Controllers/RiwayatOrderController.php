@@ -81,6 +81,10 @@ class RiwayatOrderController extends Controller
 					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','nominal_token','no_meter'];
 			} elseif ($id_layanan == '5' and $id_kategori == '9') { // listrik tagihan
 					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','no_meter'];
+			} elseif ($id_layanan == '3' and $id_kategori == '13') { // simpanan
+				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','jumlah_simpanan','store_ke','keterangan'];
+			} elseif ($id_layanan == '3' and $id_kategori == '14') { // pinjaman
+				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','nilai_pinjaman','store_ke','keterangan','tenor'];
 			} else {
 					// 5 6 , 5 12, 5 8 , 5 9
 				throw new \Exception("Tidak ditemukan kriteria order detail", 400);

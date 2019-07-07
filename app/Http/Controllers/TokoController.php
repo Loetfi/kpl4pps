@@ -13,11 +13,130 @@ use App\Models\Anggota\OrderModel AS Order;
 use App\Models\Anggota\OrderDetailModel AS OrderDetail;
 use App\Models\Anggota\AnggotaModel AS Anggota;
 
+// backend 
+use App\Models\Anggota\OrderListModel AS OrderList;
+use DB;
+
 class TokoController extends Controller
 {
+	// backend
+	public function listData(Request $request)
+	{
+		try { 
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'id_kategori'	=> 'required|integer',
+				'id_layanan'	=> 'required|integer'
+			]);
+
+			$id_kategori = $request->id_kategori ? $request->id_kategori : 0;
+			$id_layanan = $request->id_layanan ? $request->id_layanan : 0;
+
+			$res = OrderList::where('id_layanan',$id_layanan)->where('id_kategori',$id_kategori)->join('anggota','view_order_list.id_anggota','=','anggota.id')->select('view_order_list.*','anggota.nama')->orderBy('id_order','asc')->get();
+
+			$Message = 'Berhasil';
+			$code = 200;
+			$data = $res;
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
+	public function detailData(Request $request)
+	{
+		try { 
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'id_kategori'	=> 'required|integer',
+				'id_layanan'	=> 'required|integer',
+				'id_order'		=> 'required|integer',
+			]);
+
+			$id_kategori = $request->id_kategori ? $request->id_kategori : 0;
+			$id_layanan = $request->id_layanan ? $request->id_layanan : 0;
+			$id_order = $request->id_order ? $request->id_order : 0;
+
+			$header = OrderList::where('id_layanan',$id_layanan)->where('id_kategori',$id_kategori)->join('anggota','view_order_list.id_anggota','=','anggota.id')->where('id_order',$id_order)->select('view_order_list.*','anggota.nama')->orderBy('tanggal_order','desc')->get()->first();
+
+			$res =  DB::table('view_order_detail')
+			->join('anggota','view_order_detail.id_anggota','=','anggota.id')
+			->where('id_layanan',$id_layanan)
+			->where('id_kategori',$id_kategori)
+			->where('id_order',$id_order)
+			->select('view_order_detail.*','anggota')
+			->get();
+
+			$Message = 'Berhasil';
+			$code = 200;
+			$data = array('header' => $header, 'detail' => $res);
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
+
+	public function ProsesApproval(Request $request)
+	{
+		try { 
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'id_order'		=> 'required|integer',
+				'status'		=> 'required'
+			]);
+
+			$id_order = $request->id_order ? $request->id_order : 0;
+			$status = $request->status ? $request->status : 0;
+
+			$ubah = array(
+				'approval' => $status
+			);
+
+			$res = Order::where('id_order',$id_order)->update($ubah);
+
+			if ($res) {
+				$code = 200;
+				$Message = 'Berhasil di Approve';
+
+				// kirim notifikasi ke pengguna 
+				$user = Order::where('id_order',$id_order)->get()->first();
+				$anggota = Anggota::where('id',$user->id_anggota)->get()->first();
+
+				// dd($user->id_anggota);
+				if ($status == 1) {
+					$res_notif = Notif::push($anggota->noanggota , 'Status Order Toko #'.$user->id_order. '- KP Lemigas' , 'Berhasil di Setujui');
+
+				} elseif ($status == 0) {
+					$res_notif = Notif::push($anggota->noanggota , 'Status Order Toko #'.$user->id_order. '- KP Lemigas' , 'Tidak Berhasil di Setujui');
+				}
+				// end 
+			} else {
+				$code = 400;
+				$Message = 'Tidak Berhasil di Approve';
+			} 			
+			$data = [];
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
+	// end
 	public function data(Request $request){
 		try { 
-
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
 			$this->validate($request, [

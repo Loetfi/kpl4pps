@@ -15,7 +15,8 @@ class OrderModel extends Model {
         'id_layanan', 
 		'id_kategori',
 		'telepon',
-		'ekstension'
+		'ekstension',
+        'approval'
     ];
 
     public $timestamps = true;
