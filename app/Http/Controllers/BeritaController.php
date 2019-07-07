@@ -13,17 +13,8 @@ class BeritaController extends Controller
 
 	public function listData(Request $request)
 	{
-		try { 
-			// if(empty($request->json())) throw New \Exception('Params not found', 500);
-
-			// $this->validate($request, [
-			// 	'id_kategori'	=> 'required|integer',
-			// 	'id_layanan'	=> 'required|integer'
-			// ]);
-
-			// $id_kategori = $request->id_kategori ? $request->id_kategori : 0;
-			// $id_layanan = $request->id_layanan ? $request->id_layanan : 0;
-
+		try {
+			
 			$res = BeritaModel::orderBy('id_berita','desc')->get();
 
 			$Message = 'Berhasil';
