@@ -36,6 +36,76 @@ class GedungController extends Controller
 		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
 	}
 
+	// booking serba usaha
+	public function detail(Request $request){
+		try { 
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'id_kategori'          	=> 'required|integer'
+			]);
+
+			$id_kategori = $request->id_kategori ? $request->id_kategori : 0;
+			$get_kategori = Kategori::where('id_kategori' , $id_kategori)->get()->first();
+			$check = $get_kategori->id_layanan ? $get_kategori->id_layanan : 0; 
+
+			$photo = explode(';',$get_kategori->photo);
+			$denah = explode(';',$get_kategori->denah);
+
+			$data = array(
+				'id_kategori'	=> $get_kategori->id_kategori,
+				'nama_kategori'	=> $get_kategori->nama_kategori,
+				'gambar_kategori'	=> $get_kategori->gambar_kategori,
+				'penjelasan'	=> $get_kategori->penjelasan,
+				'video'	=> $get_kategori->video,
+				'photo'	=> $photo,
+				'denah'	=> $denah,
+				'sk'		=> $get_kategori->sk,
+				'rekanan'	=> [
+					[
+						'nama'		=> 'MUA',
+						'gambar'	=> 'https://i.pinimg.com/236x/b6/87/59/b687599d203c2e6a204bd7f022c14f6d--blank-wallpaper-apples.jpg'
+					],
+					[
+						'nama'		=> 'Cathering',
+						'gambar'	=> 'https://i.pinimg.com/236x/b6/87/59/b687599d203c2e6a204bd7f022c14f6d--blank-wallpaper-apples.jpg'
+					],
+					[
+						'nama'		=> 'Florist',
+						'gambar'	=> 'https://i.pinimg.com/236x/b6/87/59/b687599d203c2e6a204bd7f022c14f6d--blank-wallpaper-apples.jpg'
+					],
+					[
+						'nama'		=> 'Decoration',
+						'gambar'	=> 'https://i.pinimg.com/236x/b6/87/59/b687599d203c2e6a204bd7f022c14f6d--blank-wallpaper-apples.jpg'
+					],
+					[
+						'nama'		=> 'Favor & Gift',
+						'gambar'	=> 'https://i.pinimg.com/236x/b6/87/59/b687599d203c2e6a204bd7f022c14f6d--blank-wallpaper-apples.jpg'
+					]
+				]
+			);
+			$get_kategori = $data;
+
+			if ($check > 0) {
+
+
+			} else {
+				if(empty($request->json())) throw New \Exception('Channel tidak diberika otoritas form dinamis', 400);
+			} 
+
+			$Message = 'Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = $get_kategori;
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
 	public function submit(Request $request){
 		try { 
 
@@ -103,43 +173,7 @@ class GedungController extends Controller
 		
 	}
 
-	// booking serba usaha
-	public function detail(Request $request){
-		try { 
-			if(empty($request->json())) throw New \Exception('Params not found', 500);
-
-			$this->validate($request, [
-				'id_kategori'          	=> 'required|integer'
-			]);
-
-			$id_kategori = $request->id_kategori ? $request->id_kategori : 0;
-			$get_kategori = Kategori::where('id_kategori' , $id_kategori)->get()->first();
-			$check = $get_kategori->id_layanan ? $get_kategori->id_layanan : 0; 
-
-			if ($check > 0) { 
-
-
-			} else {
-				if(empty($request->json())) throw New \Exception('Channel tidak diberika otoritas form dinamis', 400);
-			}
-
-			// dd($get_kategori);
-
-
-			// $data_agama = Layanan::join('apps_kategori_channel','apps_layanan.id_layanan','=','apps_kategori_channel.id_layanan')->select('nama_kategori','gambar_kategori','id_kategori') ->get();
-
-			$Message = 'Berhasil';
-			$code = 200;
-			$res = 1;
-			$data = $get_kategori;
-		} catch(Exception $e) {
-			$res = 0;
-			$Message = $e->getMessage();
-			$code = 400;
-			$data = '';
-		}
-		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
-	}
+	
 }
 
 

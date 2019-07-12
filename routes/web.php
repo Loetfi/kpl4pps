@@ -46,7 +46,6 @@ $router->get('/push-notif', 'PushNotifController@push');
 // profile 
 $router->post('/profile/image', 'ProfileController@imageProfile');
 
-
 // riwayat
 $router->get('/riwayat/order', 'RiwayatOrderController@list');
 $router->get('/riwayat/order/detail', 'RiwayatOrderController@detail');
@@ -58,6 +57,7 @@ $router->post('/serba-usaha/submit', 'SerbaUsahaController@submit');
 
 // gedung teknologi
 $router->get('/gedung/list', 'GedungController@list');
+$router->get('/gedung/detail', 'GedungController@detail');
 
 
 // simpan pinjam
