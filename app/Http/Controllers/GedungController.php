@@ -44,12 +44,13 @@ class GedungController extends Controller
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
 			$this->validate($request, [
-				'start_date'      => 'required'
+				'start_date'      => 'required',
+				'id_kategori'      => 'required',
 			]);
-
+			
 			$tanggal_bulan_depan = Carbon::parse($request->start_date)->addMonths(1);
 
-			$res = Order::where('tanggal_order','>=',$request->start_date)->where('tanggal_order','<=',$tanggal_bulan_depan)->select('tanggal_order')->get();
+			$res = Order::where('id_kategori',$request->id_kategori)->where('tanggal_order','>=',$request->start_date)->where('tanggal_order','<=',$tanggal_bulan_depan)->select('tanggal_order')->get();
 
 			$Message = 'Berhasil';
 			$code = 200;
