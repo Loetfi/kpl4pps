@@ -9,6 +9,7 @@ use App\Helpers\Telegram;
 use App\Helpers\Api;
 use App\Helpers\RestCurl;
 use App\Helpers\Notif;
+use Carbon\Carbon;
 
 use App\Models\Anggota\AnggotaModel AS Anggota;
 use App\Models\Anggota\OrderModel AS Order;
@@ -22,6 +23,34 @@ class GedungController extends Controller
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
 			$data_agama = Layanan::join('apps_kategori_channel','apps_layanan.id_layanan','=','apps_kategori_channel.id_layanan')->select('nama_kategori','gambar_kategori','id_kategori','apps_kategori_channel.id_layanan')->where('apps_layanan.id_layanan',6)->get();
+
+			$Message = 'Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = $data_agama;
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
+	// order yang ada dalam tanggal terpilih 
+	public function periodeBooking(Request $request){
+		try { 
+			dd(CarbonImmutable::now()->add(1, 'day'));
+
+
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'start_date'      => 'required'
+			]);
+
+			// $data_agama = Order::where
+			//Layanan::join('apps_kategori_channel','apps_layanan.id_layanan','=','apps_kategori_channel.id_layanan')->select('nama_kategori','gambar_kategori','id_kategori','apps_kategori_channel.id_layanan')->where('apps_layanan.id_layanan',6)->get();
 
 			$Message = 'Berhasil';
 			$code = 200;
@@ -126,7 +155,7 @@ class GedungController extends Controller
 
 			$Message = 'Berhasil';
 			$code = 200;
-			$res = 1;
+			// $res = 1;
 			$data = $res;
 		} catch(Exception $e) {
 			$res = 0;
