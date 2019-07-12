@@ -106,6 +106,32 @@ class GedungController extends Controller
 		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
 	}
 
+	public function history(Request $request){
+		try { 
+
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'id_kategori'          	=> 'required|integer'
+			]);
+
+			$id_kategori = $request->id_kategori ? $request->id_kategori : 0;
+			
+			$res = Order::where('id_kategori',$id_kategori)->where('approval',1)->take(10)->select('peruntukan_order')->orderBy('tanggal_order','DESC')->get();
+
+			$Message = 'Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = $res;
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+ 
 	public function submit(Request $request){
 		try { 
 
