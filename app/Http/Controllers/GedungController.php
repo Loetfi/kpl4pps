@@ -63,22 +63,27 @@ class GedungController extends Controller
 				'sk'		=> $get_kategori->sk,
 				'rekanan'	=> [
 					[
+						'id'		=> 1,
 						'nama'		=> 'MUA',
 						'gambar'	=> 'https://i.pinimg.com/236x/b6/87/59/b687599d203c2e6a204bd7f022c14f6d--blank-wallpaper-apples.jpg'
 					],
 					[
+						'id'		=> 2,
 						'nama'		=> 'Cathering',
 						'gambar'	=> 'https://i.pinimg.com/236x/b6/87/59/b687599d203c2e6a204bd7f022c14f6d--blank-wallpaper-apples.jpg'
 					],
 					[
+						'id'		=> 3,
 						'nama'		=> 'Florist',
 						'gambar'	=> 'https://i.pinimg.com/236x/b6/87/59/b687599d203c2e6a204bd7f022c14f6d--blank-wallpaper-apples.jpg'
 					],
 					[
+						'id'		=> 4,
 						'nama'		=> 'Decoration',
 						'gambar'	=> 'https://i.pinimg.com/236x/b6/87/59/b687599d203c2e6a204bd7f022c14f6d--blank-wallpaper-apples.jpg'
 					],
 					[
+						'id'		=> 5,
 						'nama'		=> 'Favor & Gift',
 						'gambar'	=> 'https://i.pinimg.com/236x/b6/87/59/b687599d203c2e6a204bd7f022c14f6d--blank-wallpaper-apples.jpg'
 					]
@@ -116,7 +121,7 @@ class GedungController extends Controller
 			]);
 
 			$id_kategori = $request->id_kategori ? $request->id_kategori : 0;
-			
+
 			$res = Order::where('id_kategori',$id_kategori)->where('approval',1)->take(10)->select('peruntukan_order')->orderBy('tanggal_order','DESC')->get();
 
 			$Message = 'Berhasil';
