@@ -39,9 +39,7 @@ class GedungController extends Controller
 
 	// order yang ada dalam tanggal terpilih 
 	public function periodeBooking(Request $request){
-		try { 
-			dd(CarbonImmutable::now()->add(1, 'day'));
-
+		try {
 
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
@@ -49,13 +47,14 @@ class GedungController extends Controller
 				'start_date'      => 'required'
 			]);
 
-			// $data_agama = Order::where
-			//Layanan::join('apps_kategori_channel','apps_layanan.id_layanan','=','apps_kategori_channel.id_layanan')->select('nama_kategori','gambar_kategori','id_kategori','apps_kategori_channel.id_layanan')->where('apps_layanan.id_layanan',6)->get();
+			$tanggal_bulan_depan = Carbon::parse($request->start_date)->addMonths(1);
+
+			$res = Order::where('tanggal_order','>=',$request->start_date)->where('tanggal_order','<=',$tanggal_bulan_depan)->select('tanggal_order')->get();
 
 			$Message = 'Berhasil';
 			$code = 200;
-			$res = 1;
-			$data = $data_agama;
+			$data = $res;
+
 		} catch(Exception $e) {
 			$res = 0;
 			$Message = $e->getMessage();

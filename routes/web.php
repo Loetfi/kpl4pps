@@ -59,6 +59,8 @@ $router->post('/serba-usaha/submit', 'SerbaUsahaController@submit');
 $router->get('/gedung/list', 'GedungController@list');
 $router->get('/gedung/detail', 'GedungController@detail');
 $router->get('/gedung/history', 'GedungController@history');
+$router->get('/gedung/periode-booking', 'GedungController@periodeBooking');
+
 
 
 
