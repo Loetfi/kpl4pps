@@ -46,7 +46,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        
+        // dd($e);
+        // if(HttpException)
+        // if($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException){
+        //     return 'gak nemu';
+        // }
         // dd($e->getMessage());
         return parent::render($request, $e);
         // if ($exception instanceof ValidationException)
