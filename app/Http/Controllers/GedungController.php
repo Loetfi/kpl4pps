@@ -67,7 +67,7 @@ class GedungController extends Controller
 
 	// booking serba usaha
 	public function detail(Request $request){
-		try { 
+		try {
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
 			$this->validate($request, [
@@ -139,6 +139,82 @@ class GedungController extends Controller
 		}
 		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
 	}
+	
+	//  submit
+	public function submit(Request $request){
+		try {
+
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$this->validate($request, [
+				'tanggal_book'		=> 'required',
+				'paket'				=> 'required',
+				'nama_kategori'		=> 'required',
+				'nama_anggota'		=> 'required',
+				'id_layanan'		=> 'required',
+				'id_kategori'		=> 'required',
+				'nama_kategori'		=> 'required',
+				'telepon'			=> 'required',
+				'ekstensi'			=> 'nullable',
+				'keterangan'			=> 'nullable'
+			]);
+
+			$insert_order = array(
+				'id_anggota' 	=> $request->id_anggota ? $request->id_anggota : 0,
+				'tanggal_order' => date('Y-m-d H:i:s'),
+				'id_layanan' 	=> $request->id_layanan ? $request->id_layanan : 0,
+				'id_kategori' 	=> $request->id_kategori ? $request->id_kategori : 0,
+				'telepon'		=> $request->telepon ? $request->telepon : 0,
+				// 'ekstension'	=> !empty($request->ekstensi) ? $request->ekstensi : 0,
+				
+			);
+			$id_order = Order::insertGetId($insert_order);
+
+			// $nama_penumpang = implode(';', $request->nama_penumpang);
+
+			// insert header order detail
+			$insert_order_detail = array(
+				'id_order' 		=> $id_order ? $id_order : 0,
+				'tanggal_book' 	=> $request->tanggal_book ? $request->tanggal_book : NULL,
+				'no_hp' 		=> $request->telepon ? $request->telepon : NULL,
+				'pilihan_paket'	=> $request->paket ? $request->paket : 0,
+				'keterangan'	=> !empty($request->keterangan) ? $request->keterangan : 0
+			);
+			OrderDetail::insert($insert_order_detail);
+			
+
+
+			// notif to telegram
+			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
+			$chatId = "-384536993";
+			$txt   ="#sewagedungforumtekno ".$request->nama_kategori."  #IDORDER-".$id_order." <strong>Order Baru dari ".$request->nama_kategori." </strong>"."\n";
+			$txt  .=" Tanggal Booking ". $request->tanggal_book ."\n"; 
+			$txt .="| Dari Nama Anggota : ".$request->nama_anggota." | "."\n";  
+			$telegram = new Telegram($token);
+			$telegram->sendMessage($chatId, $txt, 'HTML');
+
+			$id_anggota = $request->id_anggota ? $request->id_anggota : 0;
+			$get_anggota = Anggota::where('id' , $id_anggota)->select('noanggota')->get()->first();
+			$result = Notif::push($get_anggota->noanggota, 'Order '.$request->nama_kategori.' '.$request->nama_kategori. ' Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
+
+
+			$Message = 'Order ' .$request->nama_kategori. ' Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = '';
+
+		} catch(Exception $e) {
+
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+
+		}
+
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:''),isset($code)?$code:200);
+		
+	}
 
 	public function history(Request $request){
 		try { 
@@ -165,73 +241,7 @@ class GedungController extends Controller
 		}
 		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
 	}
- 
-	public function submit(Request $request){
-		try { 
-
-			if(empty($request->json())) throw New \Exception('Params not found', 500);
-
-			$this->validate($request, [
-				'tanggal_book'		=> 'required',
-				'nama_anggota'		=> 'required',
-				'id_layanan'		=> 'required',
-				'id_kategori'		=> 'required',
-				'nama_kategori'		=> 'required',
-				'telepon'			=> 'required',
-				'ekstensi'		=> 'required',
-
-			]);   
-			$insert_order = array(
-				'id_anggota' 	=> $request->id_anggota ? $request->id_anggota : 0,
-				'tanggal_order' => date('Y-m-d H:i:s'),
-				'id_layanan' 	=> $request->id_layanan ? $request->id_layanan : 0,
-				'id_kategori' 	=> $request->id_kategori ? $request->id_kategori : 0,
-				'telepon'		=> $request->telepon ? $request->telepon : 0,
-				'ekstension'	=> $request->ekstensi ? $request->ekstensi : 0
-			);
-			$id_order = Order::insertGetId($insert_order);
-
-			// $nama_penumpang = implode(';', $request->nama_penumpang);
-
-			// insert header order detail
-			$insert_order_detail = array(
-				'id_order' 		=> $id_order ? $id_order : 0,
-				'tanggal_book' 	=> $request->tanggal_book ? $request->tanggal_book : NULL,
-				'no_hp' 		=> $request->telepon ? $request->telepon : NULL,
-			);
-			OrderDetail::insert($insert_order_detail);
-
-
-			// notif to telegram
-			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
-			$chatId = "-384536993";
-			$txt   ="#serbausaha".$request->nama_kategori."  #IDORDER-".$id_order." <strong>Order Baru dari Serba Usaha </strong>"."\n";
-			$txt  .=" Tanggal Booking ". $request->tanggal_book ."\n"; 
-			$txt .="| Dari Nama Anggota : ".$request->nama_anggota." | "."\n";  
-			$telegram = new Telegram($token);
-			$telegram->sendMessage($chatId, $txt, 'HTML');
-
-			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
-			$result = Notif::push($get_anggota->noanggota, 'Order Serba Usaha '.$request->nama_kategori. ' Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
-
-
-			$Message = 'Order Serba Usaha ' .$request->nama_kategori. ' Berhasil';
-			$code = 200;
-			$res = 1;
-			$data = '';
-
-		} catch(Exception $e) {
-
-			$res = 0;
-			$Message = $e->getMessage();
-			$code = 400;
-			$data = '';
-
-		}
-
-		return Response()->json(Api::response($res?true:false,$Message, $data?$data:''),isset($code)?$code:200);
-		
-	}
+  
 
 	
 }

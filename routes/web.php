@@ -57,6 +57,7 @@ $router->post('/serba-usaha/submit', 'SerbaUsahaController@submit');
 
 // gedung teknologi
 $router->get('/gedung/list', 'GedungController@list');
+$router->post('/gedung/submit', 'GedungController@submit');
 $router->get('/gedung/detail', 'GedungController@detail');
 $router->get('/gedung/history', 'GedungController@history');
 $router->get('/gedung/periode-booking', 'GedungController@periodeBooking');
