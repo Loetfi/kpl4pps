@@ -15,6 +15,7 @@ use App\Models\Anggota\AnggotaModel AS Anggota;
 use App\Models\Anggota\OrderModel AS Order;
 use App\Models\Anggota\OrderDetailModel AS OrderDetail;
 use App\Models\Anggota\PaketModel AS PaketGedung;
+use DB;
 
 class GedungController extends Controller
 {
@@ -51,11 +52,16 @@ class GedungController extends Controller
 			
 			$tanggal_bulan_depan = Carbon::parse($request->start_date)->addMonths(1);
 
-			$res = Order::where('id_kategori',$request->id_kategori)->where('tanggal_order','>=',$request->start_date)->where('tanggal_order','<=',$tanggal_bulan_depan)->select('tanggal_order')->get();
+			$res = Order::where('id_kategori',$request->id_kategori)->where('tanggal_order','>=',$request->start_date)->where('tanggal_order','<=',$tanggal_bulan_depan)->groupBy(DB::raw("DATE_FORMAT(tanggal_order, '%Y-%m-%d')"))->select('tanggal_order')->get();
+
+			// dd($res);
+			foreach	($res as $key => $value ){
+					$respon[] = date('Y-m-d', strtotime($value['tanggal_order']));
+			}
 
 			$Message = 'Berhasil';
 			$code = 200;
-			$data = $res;
+			$data = $respon;
 
 		} catch(Exception $e) {
 			$res = 0;
