@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use App\Models\Anggota\AnggotaModel AS Anggota;
 use App\Models\Anggota\OrderModel AS Order;
 use App\Models\Anggota\OrderDetailModel AS OrderDetail;
+use App\Models\Anggota\PaketModel AS PaketGedung;
 
 class GedungController extends Controller
 {
@@ -88,6 +89,7 @@ class GedungController extends Controller
 				'penjelasan'	=> $get_kategori->penjelasan,
 				'video'	=> $get_kategori->video,
 				'photo'	=> $photo,
+				'paket'	=> PaketGedung::where('id_kategori', $get_kategori->id_kategori)->get(),
 				'denah'	=> $denah,
 				'sk'		=> $get_kategori->sk,
 				'rekanan'	=> [
