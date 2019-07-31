@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Helpers;
+use App\Models\Anggota\NotifModel AS NM;
 
 Class Notif { 
 
@@ -32,6 +33,15 @@ Class Notif {
 			'Authorization: key=AIzaSyBedkuZeFV_0Bg84ZxCf4A3v4z-LRtPQjE',
 			'Content-Type: application/json'
 		];
+
+		// insert to log
+		$insert = array(
+			'topic' => $id,
+			'title' => $title,
+			'message' => $message
+		);
+		NM::create($insert);
+		// end to log
 
 
 		$ch = curl_init();
