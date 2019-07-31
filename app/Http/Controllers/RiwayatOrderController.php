@@ -85,6 +85,21 @@ class RiwayatOrderController extends Controller
 				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','jumlah_simpanan','store_ke','keterangan'];
 			} elseif ($id_layanan == '3' and $id_kategori == '14') { // pinjaman
 				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','nilai_pinjaman','store_ke','keterangan','tenor'];
+			// pinjaman
+			} elseif ($id_layanan == '6' and $id_kategori == '15') { 
+				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','tanggal_book','keterangan','pilihan_paket'];
+			} elseif ($id_layanan == '6' and $id_kategori == '16') { 
+				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','tanggal_book','keterangan','pilihan_paket'];
+			} elseif ($id_layanan == '6' and $id_kategori == '17') { 
+				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','tanggal_book','keterangan','pilihan_paket'];
+			} elseif ($id_layanan == '6' and $id_kategori == '18') { 
+				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','tanggal_book','keterangan','pilihan_paket'];
+			} elseif ($id_layanan == '6' and $id_kategori == '19') { 
+				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','tanggal_book','keterangan','pilihan_paket'];
+			} elseif ($id_layanan == '6' and $id_kategori == '20') { 
+				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','tanggal_book','keterangan','pilihan_paket'];
+			} elseif ($id_layanan == '6' and $id_kategori == '21') { 
+				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','tanggal_book','keterangan','pilihan_paket'];
 			} else {
 					// 5 6 , 5 12, 5 8 , 5 9
 				throw new \Exception("Tidak ditemukan kriteria order detail", 400);
