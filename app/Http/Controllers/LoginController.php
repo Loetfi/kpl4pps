@@ -63,7 +63,7 @@ class LoginController extends Controller
 
 
     public function login(Request $request){
-        try{ 
+        try{
 
             if(empty($request->json())) throw New \Exception('Params not found', 500);
 
@@ -78,7 +78,9 @@ class LoginController extends Controller
             $code = 200;
             $res = 1;
 
-            $check = AnggotaModel::where('noanggota',$request->nik)->orWhere('username',$request->nik)->where('pin',$request->pin)->get()->first();
+            // where('noanggotas',$request->nik)->orWhere('username',$request->nik)->
+            $check = AnggotaModel::whereRaw('( noanggota = "'.$request->nik.'" OR username = "'.$request->nik.'" )')
+            ->where('pin',$request->pin)->get()->first();
             if ($check) {
                 $data = $check;
             } else {
