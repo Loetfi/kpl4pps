@@ -62,7 +62,8 @@ $router->get('/gedung/detail', 'GedungController@detail');
 $router->get('/gedung/history', 'GedungController@history');
 $router->get('/gedung/periode-booking', 'GedungController@periodeBooking');
 
-
+// notification
+$router->get('/notif/list', 'NotificationController@list');
 
 
 // simpan pinjam
@@ -124,6 +125,8 @@ $router->get('/toko/pilih_kategori', 'TokoController@pilih_kategori');
 
 // data 
 $router->get('/data/order_pesawat', 'DTOrderPesawatController@getData');
+
+$router->get('/data/orderlist', 'DTOrderController@getData');
 
 
   ## enhance from lutfi 
