@@ -73,7 +73,8 @@ $router->post('/simpan/store', 'SimpanPinjamController@submitSimpanan');
 $router->post('/pinjam/store', 'SimpanPinjamController@submitPinjaman');
 
 
-
+// rekanan
+$router->get('/rekanan/detail', 'RekananController@detail');
 
 
 // promo
