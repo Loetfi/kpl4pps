@@ -25,42 +25,7 @@ class LoginController extends Controller
     public function __construct()
     {
         //
-    }
-
-
-    /**
-    * @SWG\Post(
-    *     path="/projekan/kpl4pps/public/login",
-    *     consumes={"multipart/form-data"},
-    *     description="Login",
-    *     operationId="auth",
-    *     consumes={"application/x-www-form-urlencoded"},
-    *     produces={"application/json"},
-    *     @SWG\Parameter(
-    *         description="NIK for login",
-    *         in="formData",
-    *         name="nik",
-    *         required=true,
-    *         type="string"
-    *     ),
-    *     @SWG\Parameter(
-    *         description="PIN",
-    *         in="formData",
-    *         name="pin",
-    *         required=true,
-    *         type="string"
-    *     ), 
-    *     @SWG\Response(
-    *         response="200",
-    *         description="successful"
-    *     ),
-    *     summary="Login",
-    *     tags={
-    *         "Authentication"
-    *     }
-    * )
-    * */
-
+    } 
 
     public function login(Request $request){
         try{

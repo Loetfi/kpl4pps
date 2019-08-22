@@ -87,7 +87,7 @@ class TokoController extends Controller
 
 	public function ProsesApproval(Request $request)
 	{
-		try { 
+		try {
 			if(empty($request->json())) throw New \Exception('Params not found', 500);
 
 			$this->validate($request, [
@@ -97,6 +97,7 @@ class TokoController extends Controller
 
 			$id_order = $request->id_order ? $request->id_order : 0;
 			$status = $request->status ? $request->status : 0;
+			$kategori = !empty($request->kategori) ? @$request->kategori : 'Toko';
 
 			$ubah = array(
 				'approval' => $status
@@ -114,10 +115,10 @@ class TokoController extends Controller
 
 				// dd($user->id_anggota);
 				if ($status == 1) {
-					$res_notif = Notif::push($anggota->noanggota , 'Status Order Toko #'.$user->id_order. '- KP Lemigas' , 'Berhasil di Setujui');
+					$res_notif = Notif::push($anggota->noanggota , 'Status Order '.$kategori. ' #'.$user->id_order. '- KP Lemigas' , 'Berhasil di Setujui');
 
 				} elseif ($status == 0) {
-					$res_notif = Notif::push($anggota->noanggota , 'Status Order Toko #'.$user->id_order. '- KP Lemigas' , 'Tidak Berhasil di Setujui');
+					$res_notif = Notif::push($anggota->noanggota , 'Status Order '.$kategori. ' #'.$user->id_order. '- KP Lemigas' , 'Tidak Berhasil di Setujui');
 				}
 				// end 
 			} else {
