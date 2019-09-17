@@ -111,6 +111,7 @@ $router->get('/master/stasiun', 'StasiunController@data');
 
 // berita 
 $router->get('/berita', 'BeritaController@data');
+$router->post('/berita/add', 'BeritaController@add');
 $router->get('/berita/detail', 'BeritaController@detail');
 
 

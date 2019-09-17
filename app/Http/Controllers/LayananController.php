@@ -17,10 +17,25 @@ class LayananController extends Controller
 
 			$layanan = LayananModel::orderby('order_id','asc')->get();
 
+			foreach($layanan as $lay){
+				$ress['id_layanan'] = (int) $lay->id_layanan;
+				$ress['nama_layanan'] = $lay->nama_layanan;
+				$ress['icon_layanan'] = $lay->icon_layanan;
+				$ress['order_id'] = $lay->order_id;
+
+				$hasil[] = $ress;
+			}
+
+			// $res = array(
+			// 	'id_layanan' => (int) $layanan->id_layanan,
+			// 	'nama_layanan' => $layanan->nama_layanan,
+			// 	'icon_layanan' => $layanan->icon_layanan
+			// );
+
 			$Message = 'Berhasil';
 			$code = 200;
 			$res = 1;
-			$data = $layanan;
+			$data = $hasil;
 		} catch(Exception $e) {
 			$res = 0;
 			$Message = $e->getMessage();
