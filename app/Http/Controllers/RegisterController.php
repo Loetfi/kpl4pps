@@ -21,61 +21,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         //
-    }
-    
-    /**
-    * @SWG\Post(
-    *     path="/projekan/kpl4pps/public/register",
-    *     consumes={"multipart/form-data"},
-    *     description="Register",
-    *     operationId="register",
-    *     consumes={"application/x-www-form-urlencoded"},
-    *     produces={"application/json"},
-    *     @SWG\Parameter(
-    *         description="Nama",
-    *         in="formData",
-    *         name="nama",
-    *         required=true,
-    *         type="string"
-    *     ),
-    *     @SWG\Parameter(
-    *         description="Tempat Lahir",
-    *         in="formData",
-    *         name="tmplahir",
-    *         required=true,
-    *         type="string"
-    *     ), 
-    *     @SWG\Parameter(
-    *         description="Tanggal Lahir",
-    *         in="formData",
-    *         name="tgllahir",
-    *         required=true,
-    *         type="string"
-    *     ), 
-    *     @SWG\Parameter(
-    *         description="Gender",
-    *         in="formData",
-    *         name="gender",
-    *         required=true,
-    *         type="string"
-    *     ), 
-    *     @SWG\Parameter(
-    *         description="Agama ID",
-    *         in="formData",
-    *         name="agamaid",
-    *         required=true,
-    *         type="string"
-    *     ), 
-    *     @SWG\Response(
-    *         response="200",
-    *         description="successful"
-    *     ),
-    *     summary="Register Anggota Baru",
-    *     tags={
-    *         "Authentication"
-    *     }
-    * )
-    * */
+    } 
 
     public function register(Request $request){
         try { 
@@ -99,14 +45,25 @@ class RegisterController extends Controller
                 'nama'          => $request->nama,
                 'alamat'        => 'register online',
                 'kabupatenid'   => '20100321-200826278',
-                'kelompokid'    => '20180117-155755',
+                'kelompokid'    => '',
                 'tmplahir'      => $request->tmplahir,
                 'tgllahir'      => date('Y-m-d',strtotime($request->tgllahir)),
                 'gender'        => $request->gender,
                 'pekerjaanid'   => '20090628-000706',
                 'agamaid'       => '20130709-191250',
                 'anggota'       => 1,
-                'aktif'         => 1
+                'aktif'         => 1,
+                'kawin'         => 0,
+                'jenisid'       => 1,
+                'pengurus'      => 0,
+                'tglpengurusdiangkat' => '2018-01-05',
+                'tglpengurusberhenti' => '2018-01-05',
+                'pengawas' => '0',
+                'tglpengawasdiangkat' => '2018-01-05',
+                'tglpengawasberhenti' => '2018-01-05',
+                'kantorid'  => '20130706-192634',
+                'user'  => 'admin',
+                'jam'   => date('Y-m-d H:i:s')
             );
             $insert = AnggotaModel::insert($data_insert);
 
