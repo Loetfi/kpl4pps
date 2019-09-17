@@ -45,6 +45,9 @@ $router->get('/push-notif', 'PushNotifController@push');
 
 // profile 
 $router->post('/profile/image', 'ProfileController@imageProfile');
+$router->get('/profile/check-username', 'ProfileController@checkUsername');
+$router->post('/profile/edit', 'ProfileController@edit');
+
 
 // riwayat
 $router->get('/riwayat/order', 'RiwayatOrderController@list');
