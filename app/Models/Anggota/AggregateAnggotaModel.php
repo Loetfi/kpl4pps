@@ -5,11 +5,11 @@ namespace App\Models\Anggota;
 use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AnggotaModel extends Model {
+class AggregateAnggotaModel extends Model {
 
     // use SoftDeletes;
 
-    protected $table = 'anggota';
+    protected $table = 'apps_anggota';
     // protected $dates = ['deleted_at'];
     // protected $primaryKey = 'id';
     public $incrementing = false;
@@ -33,7 +33,9 @@ class AnggotaModel extends Model {
         'pendidikanid',
         'anggota',
         'aktif',
-        'jenisid'
+        'jenisid',
+        'photo',
+        'username'
     ];
 
     public $timestamps = false;

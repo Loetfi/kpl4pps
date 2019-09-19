@@ -11,7 +11,7 @@ use Illuminate\Hashing\BcryptHasher AS Hash;
 // use Tymon\JWTAuth\Exceptions\JWTException;
 // use App\User;
 use App\Models\Anggota\UserBackendModel AS UserBackendModel;
-use App\Models\Anggota\AnggotaModel AS AnggotaModel;
+use App\Models\Anggota\AggregateAnggotaModel AS AnggotaModel;
 use App\Helpers\Api;
 use App\Helpers\RestCurl;
 

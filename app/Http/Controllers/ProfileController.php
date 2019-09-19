@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\Telegram;
+use App\Models\Anggota\ProfileModel AS ProfileModel;
 use App\Models\Anggota\AnggotaModel AS AnggotaModel;
 use App\Helpers\Api;
 use App\Helpers\RestCurl;
@@ -32,10 +33,14 @@ class ProfileController extends Controller
 			$photo = PutImage::base64($img , $name);
 			$anggota_id = $request->anggota_id ? $request->anggota_id : 0;
 
-			AnggotaModel::where('noanggota', $anggota_id)
+			// cek 
+			$anggota_data = AnggotaModel::where('noanggota', $anggota_id)->get()->first();
+			// dd($anggota_data);
+
+			ProfileModel::where('id', $anggota_data->id)
 			->update(['photo' => $photo]);
 			
-			$get = AnggotaModel::where('noanggota' , $anggota_id)->select('photo')->get();
+			$get = ProfileModel::where('id' , $anggota_data->id)->select('photo')->get();
 			$Message = 'Berhasil';
 			$code = 200;
 			$res = 1;
@@ -67,7 +72,7 @@ class ProfileController extends Controller
 			$anggota_id = $request->anggota_id ? $request->anggota_id : 0;
 			
 
-			$check = AnggotaModel::where('username', $username);
+			$check = ProfileModel::where('username', $username);
 
 			// jika id anggota username yang sama di post, maka di allow saja 
 			$check_username =  ($check->get()->first());
@@ -84,7 +89,7 @@ class ProfileController extends Controller
 				// throw new \Exception("Username sudah ada dimilik pengguna lain", 400);	
 				$get = 'tidak';
 			}
-			// $get = AnggotaModel::where('noanggota' , $anggota_id)->select('photo')->get();
+			// $get = ProfileModel::where('noanggota' , $anggota_id)->select('photo')->get();
 			$Message = 'Berhasil';
 			$code = 200;
 			$res = 1;
@@ -118,7 +123,10 @@ class ProfileController extends Controller
 			$alamat = $request->alamat ? $request->alamat : 0;
 			$no_hp = $request->no_hp ? $request->no_hp : 0;
 
-			$check = AnggotaModel::where('username', $username);
+			// cek 
+			// $anggota_data = AnggotaModel::where('noanggota', $anggota_id)->get()->first();
+
+			$check = ProfileModel::where('username', $username);
 
 			// jika id anggota username yang sama di post, maka di allow saja 
 			$check_username =  ($check->get()->first());
@@ -135,14 +143,20 @@ class ProfileController extends Controller
 			// die();
 
 			$update = array(
-				'username' 	=> $username,
+				'username' 	=> $username
+			);
+			$updateProses = ProfileModel::where('id', $anggota_id)->update($update);
+
+			
+			$update2 = array(
 				'nohp' 		=> $no_hp,
 				'alamat' 	=> $alamat,
 			);
 
-			$updateProses = AnggotaModel::where('id', $anggota_id)->update($update);
+			$updateProsess = AnggotaModel::where('id', $anggota_id)->update($update2);
 
-			if ($updateProses) {
+
+			if ($updateProses || $updateProsess) {
 				$Message = 'Berhasil';
 				$code = 200;
 				$res = 1;
