@@ -9,7 +9,7 @@ class AnggotaModel extends Model {
 
     // use SoftDeletes;
 
-    protected $table = 'anggota';
+    protected $table = 'apps_anggota';
     // protected $dates = ['deleted_at'];
     // protected $primaryKey = 'id';
     public $incrementing = false;
