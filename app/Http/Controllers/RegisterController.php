@@ -64,7 +64,8 @@ class RegisterController extends Controller
                 'tglpengawasberhenti' => date('Y-m-d'),
                 'kantorid'  => '20130706-192634',
                 'user'  => 'admin',
-                'jam'   => date('Y-m-d H:i:s')
+                'jam'   => date('Y-m-d H:i:s'),
+                'tglberhenti'   => date('Y-m-d H:i:s')
             );
             $insert = AnggotaModel::insert($data_insert);
 
