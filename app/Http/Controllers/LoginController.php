@@ -45,7 +45,7 @@ class LoginController extends Controller
 
             // where('noanggotas',$request->nik)->orWhere('username',$request->nik)->
             $check = AnggotaModel::whereRaw('( noanggota = "'.$request->nik.'" OR username = "'.$request->nik.'" )')
-            ->where('pin',$request->pin)->get()->first();
+            ->where('pin',$request->pin)->where('aktif',1)->get()->first();
             if ($check) {
                 $data = $check;
             } else {
