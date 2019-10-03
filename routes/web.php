@@ -23,6 +23,9 @@ $router->get('/api', function () use ($router) {
   return redirect('/api/documentation');
 });
 
+// force update
+$router->get('/force-update', 'ForceUpdateController@data');
+
 $router->post('/login', 'LoginController@login');
 $router->post('/login-backend', 'LoginController@backend_login');
 
