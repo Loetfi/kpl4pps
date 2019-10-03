@@ -214,11 +214,22 @@ class TokoController extends Controller
 			$namakategori = $request->namakategori ? $request->namakategori : '';
 
 			$data_res = TokoModel::where('namakategori',$namakategori)->where('id','!=',$id)->take(5)->get();
+
+			foreach ($data_res as $harga) {
+				$data['hargajual'] = round($harga->hargajual);
+				$data['id'] = $harga->id;
+				$data['nama'] = $harga->nama;
+				$data['namasatuan'] = $harga->namasatuan;
+				$data['namakategori'] = $harga->namakategori;
+				$data['apps_gambar_barang'] = $harga->apps_gambar_barang;
+
+				$res_data[] = $data;
+			}
 			
 			$Message = 'Berhasil';
 			$code = 200;
 			$res = 1;
-			$data = $data_res;
+			$data = $res_data;
 		} catch(Exception $e) {
 			$res = 0;
 			$Message = $e->getMessage();
@@ -243,11 +254,22 @@ class TokoController extends Controller
 			$nama = $request->nama ? $request->nama : 0;
 
 			$data_res = TokoModel::where('nama','like','%'.$nama.'%')->orwhere('namakategori','like','%'.$nama.'%')->skip($request->offset)->take($request->limit)->get();
+
+			foreach ($data_res as $harga) {
+				$data['hargajual'] = round($harga->hargajual);
+				$data['id'] = $harga->id;
+				$data['nama'] = $harga->nama;
+				$data['namasatuan'] = $harga->namasatuan;
+				$data['namakategori'] = $harga->namakategori;
+				$data['apps_gambar_barang'] = $harga->apps_gambar_barang;
+
+				$res_data[] = $data;
+			}
 			
 			$Message = 'Berhasil';
 			$code = 200;
 			$res = 1;
-			$data = $data_res;
+			$data = $res_data;
 		} catch(Exception $e) {
 			$res = 0;
 			$Message = $e->getMessage();
@@ -292,10 +314,21 @@ class TokoController extends Controller
 
 			$data_res = TokoModel::where('namakategori','like','%'.$nama.'%')->skip($request->offset)->take($request->limit)->get();
 
+			foreach ($data_res as $harga) {
+				$data['hargajual'] = round($harga->hargajual);
+				$data['id'] = $harga->id;
+				$data['nama'] = $harga->nama;
+				$data['namasatuan'] = $harga->namasatuan;
+				$data['namakategori'] = $harga->namakategori;
+				$data['apps_gambar_barang'] = $harga->apps_gambar_barang;
+
+				$res_data[] = $data;
+			}
+
 			$Message = 'Berhasil';
 			$code = 200;
 			$res = 1;
-			$data = $data_res;
+			$data = $res_data;
 		} catch(Exception $e) {
 			$res = 0;
 			$Message = $e->getMessage();
