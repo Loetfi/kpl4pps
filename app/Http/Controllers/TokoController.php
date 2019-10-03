@@ -147,10 +147,22 @@ class TokoController extends Controller
 
 			$data_res = TokoModel::skip($request->offset)->take($request->limit)->orderby('nama','asc')->get();
 
+
+			foreach ($data_res as $harga) {
+				$data['hargajual'] = round($harga->hargajual);
+				$data['id'] = $harga->id;
+				$data['nama'] = $harga->nama;
+				$data['namasatuan'] = $harga->namasatuan;
+				$data['namakategori'] = $harga->namakategori;
+				$data['apps_gambar_barang'] = $harga->apps_gambar_barang;
+
+				$res_data[] = $data;
+			}
+
 			$Message = 'Berhasil';
 			$code = 200;
 			$res = 1;
-			$data = $data_res;
+			$data = $res_data;
 		} catch(Exception $e) {
 			$res = 0;
 			$Message = $e->getMessage();
