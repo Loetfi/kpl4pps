@@ -13,6 +13,8 @@ class RiwayatModel extends Model {
     // protected $dates = ['deleted_at'];
     // protected $primaryKey = 'id_authorization_company';
 
+    protected $casts = [ 'id_layanan' => 'int' ];
+
     protected $fillable = [
         'id_order',
         'id_layanan'
