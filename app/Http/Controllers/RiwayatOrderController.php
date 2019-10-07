@@ -122,7 +122,7 @@ class RiwayatOrderController extends Controller
 				$ress['id_order_detail'] = $res_data->id_order_detail;
 				$ress['id_order'] = $res_data->id_order;
 				$ress['no_hp'] = $res_data->no_hp;
-				$ress['nominal_token'] = $res_data->nominal_token;
+				$ress['nominal_token'] = (int) $res_data->nominal_token;
 				$ress['no_meter'] = $res_data->no_meter;
 
 				$result[] = $ress;
