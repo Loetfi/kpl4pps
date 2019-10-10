@@ -31,7 +31,8 @@ class TravelController extends Controller
 				'kursi_kelas'       	=> 'required',
 				'nama_anggota'			=> 'required',
 				'telepon'				=> 'required',
-				'ekstensi'				=> 'required'
+				'ekstensi'				=> 'required',
+				'maskapai'				=> 'required'
 			]);   
 			
 
@@ -57,6 +58,7 @@ class TravelController extends Controller
 				'waktu_keberangkatan' 	=> $request->waktu_keberangkatan ? $request->waktu_keberangkatan : NULL,
 				'kursi_kelas' 	=> $request->kursi_kelas ? $request->kursi_kelas : NULL,
 				'nama_penumpang' 	=> $nama_penumpang ? $nama_penumpang : NULL,
+				'maskapai_id' 	=> $request->maskapai ? $request->maskapai : NULL
 				// 'nama_anggota' 	=> $request->nama_anggota ? $request->nama_anggota : NULL,
 				// 'id_anggota' 	=> $request->id_anggota ? $request->id_anggota : NULL,
 			);

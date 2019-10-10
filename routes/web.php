@@ -23,6 +23,10 @@ $router->get('/api', function () use ($router) {
   return redirect('/api/documentation');
 });
 
+// jobs 
+$router->get('/jobs-toko', 'Jobs_ParsingDataController@toko');
+
+
 // force update
 $router->get('/force-update', 'ForceUpdateController@data');
 
@@ -135,6 +139,9 @@ $router->get('/toko/pilih_kategori', 'TokoController@pilih_kategori');
 $router->get('/data/order_pesawat', 'DTOrderPesawatController@getData');
 
 $router->get('/data/orderlist', 'DTOrderController@getData');
+
+// maskapai
+$router->get('/maskapai/master', 'MaskapaiController@data');
 
 
   ## enhance from lutfi 

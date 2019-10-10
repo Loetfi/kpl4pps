@@ -107,31 +107,11 @@ class RiwayatOrderController extends Controller
 
 			$data_res = RiwayatDetail::where('id_anggota' , $anggota_id)->where('id_order',$id_order)->where('id_layanan',$id_layanan)->select($select)->where('id_kategori',$id_kategori)->get();
 
-			foreach ($data_res as $res_data) {
-				$ress['telepon'] = $res_data->telepon;
-				$ress['ekstension'] = $res_data->ekstension;
-				$ress['id_anggota'] = $res_data->id_anggota;
-				$ress['tanggal_order'] = $res_data->tanggal_order;
-				$ress['id_layanan'] = (int) $res_data->id_layanan;
-				$ress['approval'] = $res_data->approval;
-				$ress['nama_kategori'] = $res_data->nama_kategori;
-				$ress['id_kategori'] = $res_data->id_kategori;
-				$ress['gambar_kategori'] = $res_data->gambar_kategori;
-				$ress['nama_layanan'] = $res_data->nama_layanan;
-				$ress['icon_layanan'] = $res_data->icon_layanan;
-				$ress['id_order_detail'] = $res_data->id_order_detail;
-				$ress['id_order'] = $res_data->id_order;
-				$ress['no_hp'] = $res_data->no_hp;
-				$ress['nominal_token'] = (int) $res_data->nominal_token;
-				$ress['no_meter'] = $res_data->no_meter;
-
-				$result[] = $ress;
-			}
-
+			 
 			$Message = 'Berhasil';
 			$code = 200;
 			$res = 1;
-			$data = $result;
+			$data = $data_res;
 
 		} catch(Exception $e) {
 			$res = 0;
