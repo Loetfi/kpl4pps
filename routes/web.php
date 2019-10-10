@@ -143,6 +143,9 @@ $router->get('/data/orderlist', 'DTOrderController@getData');
 // maskapai
 $router->get('/master/maskapai', 'MaskapaiController@data');
 
+// saldo
+$router->get('/saldo/sisa', 'SaldoController@sisa');
+
 
   ## enhance from lutfi 
 
