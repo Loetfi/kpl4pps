@@ -9,7 +9,7 @@ class RiwayatOrderDetailModel extends Model {
 
     protected $table = 'view_order_detail';
 
-    protected $casts = [ 'id_layanan' => 'int' ];
+    protected $casts = [ 'id_layanan' => 'int', 'id_kategori' => 'int' ];
 
     protected $fillable = [
         'id_order',
