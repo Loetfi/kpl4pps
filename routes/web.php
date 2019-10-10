@@ -141,7 +141,7 @@ $router->get('/data/order_pesawat', 'DTOrderPesawatController@getData');
 $router->get('/data/orderlist', 'DTOrderController@getData');
 
 // maskapai
-$router->get('/maskapai/master', 'MaskapaiController@data');
+$router->get('/master/maskapai', 'MaskapaiController@data');
 
 
   ## enhance from lutfi 
