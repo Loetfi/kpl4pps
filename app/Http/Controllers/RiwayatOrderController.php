@@ -58,7 +58,7 @@ class RiwayatOrderController extends Controller
 			if ($id_layanan == '5' and $id_kategori == '6') { // topup pulsa 
 					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','no_hp','nominal','provider'];
 			} elseif ($id_layanan == '1' and $id_kategori == '1') { // pesawat 
-					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','dari','ke','penumpang','waktu_keberangkatan','kursi_kelas','nama_penumpang'];
+					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','dari','ke','penumpang','waktu_keberangkatan','kursi_kelas','nama_penumpang','nama_maskapai'];
 			} elseif ($id_layanan == '1' and $id_kategori == '2') { // hotel
 					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','nama_hotel','check_in','check_out','tamu','rooms'];
 			} elseif ($id_layanan == '1' and $id_kategori == '3') { // kereta
