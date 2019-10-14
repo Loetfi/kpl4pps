@@ -10,6 +10,7 @@ class ForceModel extends Model {
     // use SoftDeletes;
 
     protected $table = 'apps_force_update';
+    protected $casts = [ 'force_update' => 'int'];
     // protected $dates = ['deleted_at'];
     // protected $primaryKey = 'id_authorization_company';
 
