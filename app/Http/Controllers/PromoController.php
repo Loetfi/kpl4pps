@@ -67,7 +67,7 @@ class PromoController extends Controller
 			$ImageName = time().'.jpg';
 
 			$ResultPut = PutImage::save($Url, $ImageName);
-			if($ResultPut) $content = url($ImageName);
+			if($ResultPut) $content = env('URL_PUBLIC_API').$ImageName;
 
 			$position = PromoModel::max('position');
 			$insert = array(
