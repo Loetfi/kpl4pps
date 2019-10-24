@@ -25,6 +25,8 @@ $router->get('/api', function () use ($router) {
 
 // jobs 
 $router->get('/jobs-toko', 'Jobs_ParsingDataController@toko');
+$router->get('/jobs-sp', 'Jobs_ParsingDataController@sp');
+$router->get('/jobs-modal', 'Jobs_ParsingDataController@modal');
 
 
 // force update

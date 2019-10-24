@@ -352,22 +352,24 @@ class TokoController extends Controller
 				'ekstensi'				=> 'required',
 				'total'					=> 'required',
 				'nama_anggota'			=> 'required',
-
+				'istoko'				=> 'nullable',
+				'tanggal'				=> 'nullable'
 			]);   
+
+			$istoko = $request->has('istoko') ? $request->istoko : $request->istoko = 0;
 
 			// insert header order
 			$insert_order = array(
 				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
-				'tanggal_order' => date('Y-m-d'),
+				'tanggal_order' => !empty($request->tanggal) ? $request->tanggal : date('Y-m-d'),
 				'id_layanan' => 2,
 				'id_kategori' => 7,
 				'telepon'		=> $request->telepon ? $request->telepon : 0,
 				'ekstension'	=> $request->ekstensi ? $request->ekstensi : 0,
 				'total'			=> $request->total ? $request->total : 0,
+				'approval'		=> $istoko ? $istoko : 0
 			);
-			$id_order = Order::insertGetId($insert_order);
-
-			// $nama_penumpang = implode(';', $request->nama_penumpang);
+			$id_order = Order::insertGetId($insert_order); 
 
 			// insert header order detail
 			$cart = $request->cart ? $request->cart : [];
@@ -384,37 +386,44 @@ class TokoController extends Controller
 				OrderDetail::insert($insert_order_detail);
 			}
 
+			
 
-			// notif to telegram
-			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
-			$chatId = "-384536993";
-			$txt   ="#toko #IDORDER-".$id_order." <strong>Order Baru dari TOKO </strong>"."\n";
-			$txt .="----------------------------\n";
-			$number = 1;
-			foreach ($cart as $c) {
-				
-				$txt .="| Keranjang (".$number.") | "."\n";
-				$txt .="| Nama Barang : ".$c['nama_barang']." | "."\n";
-				$txt .="| Harga Barang : ".$c['harga_barang']." | "."\n";
-				$txt .="| Qty : ".$c['qty']." | "."\n";
-				$number++;
-			}
-			$txt .="----------------------------\n";
+			if($istoko){
 
-			$txt .="| Total Belanja : ".$request->total." | "."\n";
-			$txt .="| Dari Nama Anggota : ".$request->nama_anggota." | "."\n"; 
-			$txt .="| No Telepon : ".$request->telepon." | "."\n"; 
-			$txt .="| Ekstensi: ".$request->ekstensi." | "."\n"; 
+					$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
 
-			$telegram = new Telegram($token);
-			$telegram->sendMessage($chatId, $txt, 'HTML');
+					$result = Notif::push($get_anggota->noanggota, 'Berhasil Order Toko KP Lemigas' , 'Kamu memesan '.count($cart).' item di Toko Koperasi Pegawai Lemigas ');
+			} else {
+						// notif to telegram
+					$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
+					$chatId = "-384536993";
+					$txt   ="#toko #IDORDER-".$id_order." <strong>Order Baru dari TOKO </strong>"."\n";
+					$txt .="----------------------------\n";
+					$number = 1;
+					foreach ($cart as $c) {
+						
+						$txt .="| Keranjang (".$number.") | "."\n";
+						$txt .="| Nama Barang : ".$c['nama_barang']." | "."\n";
+						$txt .="| Harga Barang : ".$c['harga_barang']." | "."\n";
+						$txt .="| Qty : ".$c['qty']." | "."\n";
+						$number++;
+					}
+					$txt .="----------------------------\n";
 
-			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
+					$txt .="| Total Belanja : ".$request->total." | "."\n";
+					$txt .="| Dari Nama Anggota : ".$request->nama_anggota." | "."\n"; 
+					$txt .="| No Telepon : ".$request->telepon." | "."\n"; 
+					$txt .="| Ekstensi: ".$request->ekstensi." | "."\n"; 
 
-			$result = Notif::push($get_anggota->noanggota, 'Order Toko Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
+					$telegram = new Telegram($token);
+					$telegram->sendMessage($chatId, $txt, 'HTML');
 
+					$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
 
-			$Message = 'Order Pesawat Berhasil';
+					$result = Notif::push($get_anggota->noanggota, 'Order Toko Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
+			} 
+
+			$Message = 'Order Toko Berhasil';
 			$code = 200;
 			$res = 1;
 			$data = '';
