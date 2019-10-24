@@ -69,7 +69,7 @@ class Jobs_ParsingDataController extends Controller
 
 			foreach ($param as $send) {
 							// echo json_encode($send); die;
-				$ress = (object) RestCurl::exec('POST', 'http://localhost/projekan/kpl4pps/public/toko/buy', $send );
+				$ress = (object) RestCurl::exec('POST', env('API_KPL').'toko/buy', $send );
 				// insert log
 				if($ress->status == 200){
 					DB::statement("INSERT INTO apps_log_parsing_toko (id,tanggal) values ('".$send['idjual']."' , '".$tanggal."') ");
