@@ -27,7 +27,7 @@ $router->get('/api', function () use ($router) {
 $router->get('/jobs-toko', 'Jobs_ParsingDataController@toko');
 $router->get('/jobs-sp', 'Jobs_ParsingDataController@sp');
 $router->get('/jobs-modal', 'Jobs_ParsingDataController@modal');
-
+$router->get('/jobs-saldo-monthly', 'Jobs_ParsingDataController@saldo');
 
 // force update
 $router->get('/force-update', 'ForceUpdateController@data');
@@ -147,6 +147,8 @@ $router->get('/master/maskapai', 'MaskapaiController@data');
 
 // saldo
 $router->get('/saldo/sisa', 'SaldoController@sisa');
+
+
 
 
   ## enhance from lutfi 

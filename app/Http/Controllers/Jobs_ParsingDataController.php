@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Helpers\Telegram;
 use App\Models\Anggota\AgamaModel AS AgamaModel;
+use App\Models\Anggota\SaldoModel AS Saldo;
 use App\Helpers\Api;
 use App\Helpers\RestCurl;
 use DB;
@@ -68,7 +69,6 @@ class Jobs_ParsingDataController extends Controller
 			// hit ke toko 
 
 			foreach ($param as $send) {
-							// echo json_encode($send); die;
 				$ress = (object) RestCurl::exec('POST', env('API_KPL').'toko/buy', $send );
 				// insert log
 				if($ress->status == 200){
@@ -197,4 +197,51 @@ class Jobs_ParsingDataController extends Controller
 		}
 		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
 	}
+
+	// simpanan / investasi / modal
+	public function saldo(Request $request){
+		try { 
+
+			if(empty($request->json())) throw New \Exception('Params not found', 500);
+
+			$date = self::TAHUN;
+			$total = 1;
+			$tanggal = '2019-12-01';
+			$status = 1;
+			$bulan = 12;
+			$tahun = 2019;
+			$saldo = 500000;
+			// INSERT into apps_saldo_monthly
+			$saldo = DB::select(DB::raw("
+				SELECT id , $saldo as saldo, '$tanggal' as date , $status as status from anggota
+				where ( noanggota not like '%P.%' and noanggota not like '%P2.%' )
+				and id not in (SELECT id from apps_saldo_monthly where MONTH(date) = '$bulan' 
+				and YEAR(date) = $tahun) ")); 
+			$saldos = json_decode(json_encode($saldo), true);
+			// dd($saldos = json_decode(json_encode($saldo), true));
+			// dd($saldos);
+// 			$data = array(
+//     array('name'=>'Coder 1', 'rep'=>'4096'),
+//     array('name'=>'Coder 2', 'rep'=>'2048'),
+//     //...
+// );
+			// print_r([$saldos]); die;
+			// $insert = array($saldos);
+			// end
+
+			$oke = Saldo::insert($saldos);
+
+			$Message = 'Berhasil';
+			$code = 200;
+			$res = 1;
+			$data = ['angka' => $oke];
+		} catch(Exception $e) {
+			$res = 0;
+			$Message = $e->getMessage();
+			$code = 400;
+			$data = '';
+		}
+		return Response()->json(Api::response($res?true:false,$Message, $data?$data:[]),isset($code)?$code:200);
+	}
+
 }
