@@ -149,6 +149,10 @@ $router->get('/master/maskapai', 'MaskapaiController@data');
 $router->get('/saldo/sisa', 'SaldoController@sisa');
 
 
+// update
+$router->post('/kolektif/update', 'KolektifController@update');
+
+
 
 
   ## enhance from lutfi 
