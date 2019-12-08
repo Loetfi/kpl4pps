@@ -50,7 +50,7 @@ class Jobs_ParsingDataController extends Controller
 				$param[] = array(
 					'idjual' => $key->id,
 					'id_anggota' => $key->pelangganid,
-					'tanggal'	=> $tanggal,
+					'tanggal'	=> $key->jam ?? $tanggal,
 					'nama_anggota' => $key->namaanggota,
 					'telepon' => 1234,
 					'ekstensi' => 1,
