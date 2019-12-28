@@ -356,18 +356,20 @@ class TokoController extends Controller
 				'tanggal'				=> 'nullable'
 			]);   
 
+			$istoko = 0;
 			$istoko = $request->has('istoko') ? $request->istoko : $request->istoko = 0;
+			$tanggal = $request->has('tanggal') ? $request->tanggal : $request->tanggal = date('Y-m-d');
 
 			// insert header order
 			$insert_order = array(
 				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
-				'tanggal_order' => !empty($request->tanggal) ? $request->tanggal : date('Y-m-d'),
+				'tanggal_order' => $tanggal ?? date('Y-m-d'),
 				'id_layanan' => 2,
 				'id_kategori' => 7,
 				'telepon'		=> $request->telepon ? $request->telepon : 0,
 				'ekstension'	=> $request->ekstensi ? $request->ekstensi : 0,
 				'total'			=> $request->total ? $request->total : 0,
-				'approval'		=> $istoko ? $istoko : 0
+				'approval'		=> $istoko ? $istoko : ''
 			);
 			$id_order = Order::insertGetId($insert_order); 
 
