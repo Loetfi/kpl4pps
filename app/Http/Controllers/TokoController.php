@@ -283,7 +283,9 @@ class TokoController extends Controller
 	// kategori toko barng 
 	public function list_kategori(Request $request){
 		try { 
-			$data_res = TokoModel::select('namakategori as id' , 'namakategori as nama')->groupby('namakategori')->get();
+			// $data_res = TokoModel::select('namakategori as id' , 'namakategori as nama')->groupby('namakategori')->get();
+			$data_res = TokoModel::select('namakategori as id' , 'namakategori as nama')->whereNotIn('namakategori',['107-01','KONSINYASI','piutang 2019'])->groupby('namakategori')->get();
+
 
 			$Message = 'Berhasil';
 			$code = 200;

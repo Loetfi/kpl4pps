@@ -206,10 +206,10 @@ class Jobs_ParsingDataController extends Controller
 
 			$date = self::TAHUN;
 			$total = 1;
-			$tanggal = '2019-12-01';
+			$tanggal = date('Y-m').'-01';
 			$status = 1;
-			$bulan = 12;
-			$tahun = 2019;
+			$bulan = date('m');
+			$tahun = date('Y');
 			$saldo = 500000;
 			// INSERT into apps_saldo_monthly
 			$saldo = DB::select(DB::raw("
