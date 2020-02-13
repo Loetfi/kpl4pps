@@ -24,7 +24,6 @@ class ProfileController extends Controller
 			$this->validate($request, [
 				'image'       => 'required',
 				'anggota_id'       => 'required'
-
 			]);  
 
 			$img = $request->image;
@@ -115,13 +114,24 @@ class ProfileController extends Controller
 				'anggota_id'	=> 'required',
 				'username'		=> 'required',
 				'no_hp'			=> 'required',
-				'alamat'		=> 'required'
+				'alamat'		=> 'required',
+				'password'		=> 'nullable'
 			]);  
 
 			$anggota_id = $request->anggota_id ? $request->anggota_id : 0;
 			$username = $request->username ? strtolower($request->username) : 0;
 			$alamat = $request->alamat ? $request->alamat : 0;
 			$no_hp = $request->no_hp ? $request->no_hp : 0;
+			// $istoko = $request->has('istoko') ? $request->istoko : $request->istoko = 0;
+
+			if (!empty($request->has('password'))) {
+				// dd('ganti password');
+				$change_password =  array(
+					'pin'	=> $request->password
+				);
+				AnggotaModel::where('id',$anggota_id)->update($change_password);
+
+			}
 
 			// cek 
 			// $anggota_data = AnggotaModel::where('noanggota', $anggota_id)->get()->first();
@@ -132,11 +142,11 @@ class ProfileController extends Controller
 			$check_username =  ($check->get()->first());
 			// dd($check_username);
 
-			if (count(($check)->where('id',$anggota_id)->get()->first())>0) {
+			if (count((array) ($check)->where('id',$anggota_id)->get()->first())>0) {
 				// echo "username kepemilikan si id ini";
 			}  elseif(is_null($check_username)){
 				// echo "null";
-			} elseif (count($check_username)>0) {
+			} elseif (count((array) $check_username)>0) {
 				// echo "gagal";
 				throw new \Exception("Usename sudah ada yang punya, ubah profil tidak dapat disimpan", 400);	
 			}
