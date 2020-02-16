@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Helpers\Telegram;
 use App\Models\Anggota\ProfileModel AS ProfileModel;
 use App\Models\Anggota\AnggotaModel AS AnggotaModel;
+use App\Repositories\Anggota\ProfileRepositories AS PR;
 use App\Helpers\Api;
 use App\Helpers\RestCurl;
 use App\Helpers\PutImage;
@@ -115,7 +116,8 @@ class ProfileController extends Controller
 				'username'		=> 'required',
 				'no_hp'			=> 'required',
 				'alamat'		=> 'required',
-				'password'		=> 'nullable'
+				'password'		=> 'nullable',
+				'password_confirm' => 'nullable'
 			]);  
 
 			$anggota_id = $request->anggota_id ? $request->anggota_id : 0;
@@ -125,11 +127,16 @@ class ProfileController extends Controller
 			// $istoko = $request->has('istoko') ? $request->istoko : $request->istoko = 0;
 
 			if (!empty($request->has('password'))) {
-				// dd('ganti password');
-				$change_password =  array(
-					'pin'	=> $request->password
-				);
-				AnggotaModel::where('id',$anggota_id)->update($change_password);
+
+				if ($request->password === $request->password_confirm) {
+					$change_password =  array(
+						'pin'	=> $request->password
+					);
+					AnggotaModel::where('id',$anggota_id)->update($change_password);
+				} else {
+					throw new \Exception("Password tidak cocok", 400);
+					
+				}
 
 			}
 
@@ -151,27 +158,26 @@ class ProfileController extends Controller
 				throw new \Exception("Usename sudah ada yang punya, ubah profil tidak dapat disimpan", 400);	
 			}
 			// die();
-
 			$update = array(
 				'username' 	=> $username
 			);
-			$updateProses = ProfileModel::where('id', $anggota_id)->update($update);
-
 			
-			$update2 = array(
+			$update_username = PR::change_username($anggota_id , $update);
+
+			$param_profile = array(
 				'nohp' 		=> $no_hp,
-				'alamat' 	=> $alamat,
+				'alamat' 	=> $alamat
 			);
 
-			$updateProsess = AnggotaModel::where('id', $anggota_id)->update($update2);
+			$update_profile = PR::change_profile($anggota_id , $param_profile);
 
-
-			if ($updateProses || $updateProsess) {
+			if ($update_username || $update_profile) {
 				$Message = 'Berhasil';
 				$code = 200;
 				$res = 1;
 				$data = AnggotaModel::where('id', $anggota_id)->get()->first();
-			} else {
+			} 
+			else {
 				throw new \Exception("Tidak Berhasil", 400);	
 			}
 			
