@@ -67,7 +67,7 @@ class RiwayatOrderController extends Controller
 					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','dari','ke','penumpang','waktu_kedatangan'];
 			} elseif ($id_layanan == '1' and $id_kategori == '5') { // shuttle bus
 					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','dari','ke','penumpang','waktu_kedatangan','nama_shuttle'];
-			} elseif ($id_layanan == '2' and $id_kategori == '7') { // shuttle bus
+			} elseif ($id_layanan == '2' and $id_kategori == '7') { // toko
 					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','nama_barang','harga_barang','id_barang','qty'];
 			} elseif ($id_layanan == '4' and $id_kategori == '10') { // sewa gedung
 					$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','tanggal_book'];
@@ -100,6 +100,8 @@ class RiwayatOrderController extends Controller
 				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','tanggal_book','keterangan','pilihan_paket'];
 			} elseif ($id_layanan == '6' and $id_kategori == '21') { 
 				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','tanggal_book','keterangan','pilihan_paket'];
+			}elseif ($id_layanan == '7' and $id_kategori == '22') { // kantin
+				$select = ['telepon', 'ekstension','id_anggota','tanggal_order','id_layanan','approval','nama_kategori','id_kategori','gambar_kategori','nama_layanan','icon_layanan','id_order_detail','id_order','nama_barang','harga_barang','id_barang','qty'];
 			} else {
 					// 5 6 , 5 12, 5 8 , 5 9
 				throw new \Exception("Tidak ditemukan kriteria order detail", 400);

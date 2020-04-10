@@ -373,8 +373,8 @@ class KantinController extends Controller
 			$insert_order = array(
 				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
 				'tanggal_order' => $tanggal ?? date('Y-m-d'),
-				'id_layanan' => 2,
-				'id_kategori' => 7,
+				'id_layanan' => 7,
+				'id_kategori' => 22,
 				'telepon'		=> $request->telepon ? $request->telepon : 0,
 				'ekstension'	=> $request->ekstensi ? $request->ekstensi : 0,
 				'total'			=> $request->total ? $request->total : 0,
@@ -403,7 +403,7 @@ class KantinController extends Controller
 
 					$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
 
-					$result = Notif::push($get_anggota->noanggota, 'Berhasil Order Toko KP Lemigas' , 'Kamu memesan '.count($cart).' item di Toko Koperasi Pegawai Lemigas ');
+					$result = Notif::push($get_anggota->noanggota, 'Berhasil Order Kantin KP Lemigas' , 'Kamu memesan '.count($cart).' item di Kantin Koperasi Pegawai Lemigas ');
 			} else {
 						// notif to telegram
 					$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
@@ -432,7 +432,7 @@ class KantinController extends Controller
 
 					$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
 
-					$result = Notif::push($get_anggota->noanggota, 'Order Toko Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
+					$result = Notif::push($get_anggota->noanggota, 'Order Kantin Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
 			} 
 
 			$Message = 'Order Kantin Berhasil';
