@@ -39,6 +39,10 @@ $router->post('/login-backend', 'LoginController@backend_login');
 $router->get('/backend/tokolist', 'TokoController@listData');
 $router->get('/backend/toko/detailData', 'TokoController@detailData');
 $router->post('/backend/toko/approval', 'TokoController@ProsesApproval');
+// backend
+$router->get('/backend/kantinlist', 'KantinController@listData');
+$router->get('/backend/kantin/detailData', 'KantinController@detailData');
+$router->post('/backend/kantin/approval', 'KantinController@ProsesApproval');
 
 
 $router->get('/backend/beritalist', 'BeritaController@listData');
@@ -135,6 +139,15 @@ $router->post('/toko/buy', 'TokoController@buy');
 $router->get('/toko/searching', 'TokoController@searching');
 $router->get('/toko/list_kategori', 'TokoController@list_kategori');
 $router->get('/toko/pilih_kategori', 'TokoController@pilih_kategori');
+
+// kantin 
+$router->get('/kantin/list', 'KantinController@data');
+$router->get('/kantin/detail', 'KantinController@detail');
+$router->get('/kantin/related', 'KantinController@related');
+$router->post('/kantin/buy', 'KantinController@buy');
+$router->get('/kantin/searching', 'KantinController@searching');
+$router->get('/kantin/list_kategori', 'KantinController@list_kategori');
+$router->get('/kantin/pilih_kategori', 'KantinController@pilih_kategori');
 
 
 // data 
