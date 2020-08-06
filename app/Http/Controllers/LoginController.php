@@ -12,6 +12,8 @@ use Illuminate\Hashing\BcryptHasher AS Hash;
 // use App\User;
 use App\Models\Anggota\UserBackendModel AS UserBackendModel;
 use App\Models\Anggota\AggregateAnggotaModel AS AnggotaModel;
+use App\Models\Anggota\LoginActivityModel AS LoginActivityModel;
+
 use App\Helpers\Api;
 use App\Helpers\RestCurl;
 
@@ -43,15 +45,18 @@ class LoginController extends Controller
             $code = 200;
             $res = 1;
 
-            // dd($request->pin);
-
-            // where('noanggotas',$request->nik)->orWhere('username',$request->nik)->
             $check = AnggotaModel::whereRaw('( noanggota = "'.$request->nik.'" OR username = "'.$request->nik.'" )')
             ->where('pin',$request->pin)->where('aktif',1)->get()->first();
 
-            // dd($check);
-
             if ($check) {
+                /**
+                 * insert data to login activity
+                 */
+                LoginActivityModel::create([
+                    'id_anggota' => $check->noanggota,
+                    'datetime' => date('Y-m-d H:i:s')
+                ]);
+
                 $data = $check;
             } else {
                 $res = 0;
