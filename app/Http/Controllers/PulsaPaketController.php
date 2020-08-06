@@ -30,16 +30,7 @@ class PulsaPaketController extends Controller
 				'id_anggota'		=> 'required'
 			]);  
 
-            // return 'oke';
-			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
-			$chatId = "-384536993";
-			$txt   ="#pulsa <strong>Order Baru dari Pesanan Pulsa </strong>"."\n";
-			$txt  .="| No HP : ". $request->nohp ."\n";
-			$txt  .="| Nominal : ". $request->nominal ."\n";
-			$txt .="| Dari Nama Anggota : ".$request->nama_anggota."\n"; 
-
-			$telegram = new Telegram($token);
-			$telegram->sendMessage($chatId, $txt, 'HTML');
+           
 
 			// insert header order
 			$insert_order = array(
@@ -63,6 +54,23 @@ class PulsaPaketController extends Controller
 			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
 
 			$result = Notif::push($get_anggota->noanggota, 'Order Pulsa Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
+			/**
+			 * notif telegram
+			 */
+
+			  // return 'oke';
+			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
+			$chatId = "-384536993";
+			$txt   ="#pulsa <strong>Order Baru dari Pesanan Pulsa </strong>"."\n";
+			$txt  .="| No HP : ". $request->nohp ."\n";
+			$txt  .="| Nominal : ". $request->nominal ."\n";
+			$txt .="| Dari Nama Anggota : ".$request->nama_anggota."\n";
+			$txt .="| Dari No Anggota : ".$request->noanggota."\n"; 
+			$telegram = new Telegram($token);
+			$telegram->sendMessage($chatId, $txt, 'HTML');
+			/**
+			 * end
+			 */
 
 			$Message = 'Berhasil';
 			$code = 200;
