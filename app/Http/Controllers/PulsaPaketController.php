@@ -131,6 +131,7 @@ class PulsaPaketController extends Controller
 			$txt  .="| No HP : ". $request->nohp ."\n";
 			$txt  .="| Jenis Paket : ". $request->paket ."\n";
 			$txt .="| Dari Nama Anggota : ".$request->nama_anggota."\n"; 
+			$txt .="| Dari No Anggota : ".$get_anggota->noanggota."\n";
 
 			$telegram = new Telegram($token);
 			$telegram->sendMessage($chatId, $txt, 'HTML');

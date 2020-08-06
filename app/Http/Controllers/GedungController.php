@@ -192,19 +192,20 @@ class GedungController extends Controller
 								
 								
 								
+								
+								$id_anggota = $request->id_anggota ? $request->id_anggota : 0;
+								$get_anggota = Anggota::where('id' , $id_anggota)->select('noanggota')->get()->first();
+								$result = Notif::push($get_anggota->noanggota, 'Order '.$request->nama_kategori.' '.$request->nama_kategori. ' Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
+								
 								// notif to telegram
 								$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
 								$chatId = "-384536993";
 								$txt   ="#sewagedungforumtekno ".$request->nama_kategori."  #IDORDER-".$id_order." <strong>Order Baru dari ".$request->nama_kategori." </strong>"."\n";
 								$txt  .=" Tanggal Booking ". $request->tanggal_book ."\n"; 
 								$txt .="| Dari Nama Anggota : ".$request->nama_anggota." | "."\n";  
+								$txt .="| Dari No Anggota : ".$get_anggota->noanggota."\n";
 								$telegram = new Telegram($token);
 								$telegram->sendMessage($chatId, $txt, 'HTML');
-								
-								$id_anggota = $request->id_anggota ? $request->id_anggota : 0;
-								$get_anggota = Anggota::where('id' , $id_anggota)->select('noanggota')->get()->first();
-								$result = Notif::push($get_anggota->noanggota, 'Order '.$request->nama_kategori.' '.$request->nama_kategori. ' Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
-								
 								
 								$Message = 'Order ' .$request->nama_kategori. ' Berhasil';
 								$code = 200;

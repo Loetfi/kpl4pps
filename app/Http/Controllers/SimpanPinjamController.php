@@ -60,17 +60,10 @@ class SimpanPinjamController extends Controller
 			]);  
 
             // return 'oke';
-			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
-			$chatId = "-384536993";
-			$txt   ="#simpanan <strong>Order Baru dari Simpanan </strong>"."\n";
-			$txt  .="| Keterangan : ". $request->keterangan ."\n";
-			$txt  .="| Jumlah Simpanan : ". $request->jumlah_simpanan ."\n";
-			$txt  .="| Setor Ke : ". $request->store_ke ."\n";
-			$txt .="| Dari Nama Anggota : ".$request->nama_anggota."\n"; 
-
+			
 			$telegram = new Telegram($token);
 			$telegram->sendMessage($chatId, $txt, 'HTML');
-
+			
 			// insert header order
 			$insert_order = array(
 				'id_anggota' => $request->id_anggota ? $request->id_anggota : 0,
@@ -79,8 +72,8 @@ class SimpanPinjamController extends Controller
 				'id_kategori' => 13
 			);
 			$id_order = Order::insertGetId($insert_order);
-
-
+			
+			
 			// insert header order detail
 			$insert_order_detail = array(
 				'id_order' 			=> $id_order,
@@ -89,8 +82,20 @@ class SimpanPinjamController extends Controller
 				'jumlah_simpanan'	=> $request->jumlah_simpanan ? $request->jumlah_simpanan : NULL,
 			);
 			OrderDetail::insert($insert_order_detail);
-
+			
 			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
+
+			/**
+			 * Telegram
+			 */
+			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
+			$chatId = "-384536993";
+			$txt   ="#simpanan <strong>Order Baru dari Simpanan </strong>"."\n";
+			$txt  .="| Keterangan : ". $request->keterangan ."\n";
+			$txt  .="| Jumlah Simpanan : ". $request->jumlah_simpanan ."\n";
+			$txt  .="| Setor Ke : ". $request->store_ke ."\n";
+			$txt .="| Dari Nama Anggota : ".$request->nama_anggota."\n";
+			$txt .="| Dari No Anggota : ".$get_anggota->noanggota."\n"; 
 
 			$result = Notif::push($get_anggota->noanggota, 'Simpanan Berhasil' , 'Data akan diproses oleh admin koperasi pegawai lemigas');
 

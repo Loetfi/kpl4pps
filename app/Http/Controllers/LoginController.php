@@ -36,16 +36,21 @@ class LoginController extends Controller
                 'nik'       => 'required',
                 'pin'       => 'required'
 
-            ]);  
+            ]);
 
             $data = '';
             $Message = 'Berhasil';
             $code = 200;
             $res = 1;
 
+            // dd($request->pin);
+
             // where('noanggotas',$request->nik)->orWhere('username',$request->nik)->
             $check = AnggotaModel::whereRaw('( noanggota = "'.$request->nik.'" OR username = "'.$request->nik.'" )')
             ->where('pin',$request->pin)->where('aktif',1)->get()->first();
+
+            // dd($check);
+
             if ($check) {
                 $data = $check;
             } else {

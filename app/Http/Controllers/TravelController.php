@@ -65,31 +65,33 @@ class TravelController extends Controller
 			OrderDetail::insert($insert_order_detail);
 
 
+			
+			$explode_penumpang = explode(';', $nama_penumpang);
+			$number = 1;
+			foreach ($explode_penumpang as $person) {
+				$txt .="| Nama Penumpang : (".$number.') '.$person." | "."\n";
+				$number++;
+			}
+			
+			$txt .="| Waktu Keberangkatan : ".$request->waktu_keberangkatan." | "."\n";
+			$txt .="| Kursi Kelas : ".$request->kursi_kelas." | "."\n";
+			$txt .="| Dari Nama Anggota : ".$request->nama_anggota." | "."\n"; 
+			$txt .="| No Telepon : ".$request->telepon." | "."\n"; 
+			$txt .="| Ekstensi: ".$request->ekstensi." | "."\n"; 
+			
+			$telegram = new Telegram($token);
+			$telegram->sendMessage($chatId, $txt, 'HTML');
+			
+			
+			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
+
 			// notif to telegram
 			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
 			$chatId = "-384536993";
 			$txt   ="#pesawat #IDORDER-".$id_order." <strong>Order Baru dari Pesanan Pesawat </strong>"."\n";
 			$txt  .=" dari ". $request->dari ." ke ".$request->ke."\n";
 			$txt .="| Penumpang : ".$request->penumpang." | "."\n";
-
-			$explode_penumpang = explode(';', $nama_penumpang);
-			$number = 1;
-			foreach ($explode_penumpang as $person) {
-					$txt .="| Nama Penumpang : (".$number.') '.$person." | "."\n";
-					$number++;
-			}
-
-			$txt .="| Waktu Keberangkatan : ".$request->waktu_keberangkatan." | "."\n";
-			$txt .="| Kursi Kelas : ".$request->kursi_kelas." | "."\n";
-			$txt .="| Dari Nama Anggota : ".$request->nama_anggota." | "."\n"; 
-			$txt .="| No Telepon : ".$request->telepon." | "."\n"; 
-			$txt .="| Ekstensi: ".$request->ekstensi." | "."\n"; 
-
-			$telegram = new Telegram($token);
-			$telegram->sendMessage($chatId, $txt, 'HTML');
-
-
-			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
+			$txt .="| Dari No Anggota : ".$get_anggota->noanggota."\n";
 
 			$result = Notif::push($get_anggota->noanggota, 'Order Pesawat Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
 
