@@ -31,7 +31,7 @@ class ValidLoginMiddleware
 
             $checkLogin = LoginActivityModel::where('id_anggota', $get_anggota->noanggota)->get()->first();
 
-            if ($checkLogin > 0){
+            if (isset($checkLogin)){
                 
                 /**
                 * Telegram
