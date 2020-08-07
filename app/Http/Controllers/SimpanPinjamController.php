@@ -163,13 +163,7 @@ class SimpanPinjamController extends Controller
 			]);  
 
             // return 'oke';
-			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
-			$chatId = "-384536993";
-			$txt   ="#pinjaman <strong>Order Baru dari Pinjaman </strong>"."\n";
-			$txt  .="| Keterangan : ". $request->keterangan ."\n";
-			$txt  .="| Jumlah Pinjaman : ". $request->nilai_pinjaman ."\n";
-			$txt  .="| Tenor : ". $request->tenor ."\n";
-			$txt .="| Dari Nama Anggota : ".$request->nama_anggota."\n"; 
+			
 
 			$telegram = new Telegram($token);
 			$telegram->sendMessage($chatId, $txt, 'HTML');
@@ -196,6 +190,19 @@ class SimpanPinjamController extends Controller
 			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
 
 			$result = Notif::push($get_anggota->noanggota, 'Pinjaman Berhasil' , 'Data akan diproses oleh admin koperasi pegawai lemigas');
+
+			/**
+			 * telegram
+			 */
+			$token  = "897658383:AAExyvHTM5Jzrw7EF0fF5XAheJnC9RSnVaw";	
+			$chatId = "-384536993";
+			$txt   ="#pinjaman <strong>Order Baru dari Pinjaman </strong>"."\n";
+			$txt  .="| Keterangan : ". $request->keterangan ."\n";
+			$txt  .="| Jumlah Pinjaman : ". $request->nilai_pinjaman ."\n";
+			$txt  .="| Tenor : ". $request->tenor ."\n";
+			$txt .="| Dari Nama Anggota : ".$request->nama_anggota."\n"; 
+			$txt .="| Dari No Anggota : ".$get_anggota->noanggota."\n";
+
 
 			$Message = 'Berhasil';
 			$code = 200;
