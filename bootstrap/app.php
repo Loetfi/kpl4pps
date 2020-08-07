@@ -75,7 +75,8 @@ $app->singleton(
 
 $app->routeMiddleware([
     'authorize' => App\Http\Middleware\AuthenticateMiddleware::class,
-    'cors' => Nord\Lumen\Cors\CorsMiddleware::class
+    'cors' => Nord\Lumen\Cors\CorsMiddleware::class,
+    'validLogin' => App\Http\Middleware\ValidLoginMiddleware::class
 ]);
 
 /*

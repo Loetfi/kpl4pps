@@ -28,9 +28,7 @@ class PulsaPaketController extends Controller
 				'nominal'			=> 'required',
 				'nama_anggota'		=> 'required',
 				'id_anggota'		=> 'required'
-			]);  
-
-           
+			]);
 
 			// insert header order
 			$insert_order = array(
@@ -52,8 +50,8 @@ class PulsaPaketController extends Controller
 			OrderDetail::insert($insert_order_detail);
 
 			$get_anggota = Anggota::where('id' , $request->id_anggota)->select('noanggota')->get()->first();
-
-			$result = Notif::push($get_anggota->noanggota, 'Order Pulsa Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
+			$noanggota = isset($get_anggota->noanggota) ? $get_anggota->noanggota : 0;
+			$result = Notif::push($noanggota, 'Order Pulsa Berhasil' , 'Pesanan akan diproses oleh admin koperasi pegawai lemigas');
 			/**
 			 * notif telegram
 			 */
@@ -65,7 +63,7 @@ class PulsaPaketController extends Controller
 			$txt  .="| No HP : ". $request->nohp ."\n";
 			$txt  .="| Nominal : ". $request->nominal ."\n";
 			$txt .="| Dari Nama Anggota : ".$request->nama_anggota."\n";
-			$txt .="| Dari No Anggota : ".$get_anggota->noanggota."\n"; 
+			$txt .="| Dari No Anggota : ".$noanggota."\n"; 
 			$telegram = new Telegram($token);
 			$telegram->sendMessage($chatId, $txt, 'HTML');
 			/**

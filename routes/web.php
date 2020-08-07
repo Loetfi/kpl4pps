@@ -12,14 +12,14 @@
 */
 
 
-// $router->group(['middleware'=>['cors']], function() use($router){
+
 
 $router->get('/', function () use ($router) {
-      return $router->app->version();
+  return $router->app->version();
   // return redirect('/api/documentation');
 });
 $router->get('/api', function () use ($router) {
-      // return $router->app->version();
+  // return $router->app->version();
   return redirect('/api/documentation');
 });
 
@@ -69,11 +69,11 @@ $router->get('/riwayat/order/detail', 'RiwayatOrderController@detail');
 // serba usaha 
 $router->get('/serba-usaha/list', 'SerbaUsahaController@list');
 $router->get('/serba-usaha/detail', 'SerbaUsahaController@detail');
-$router->post('/serba-usaha/submit', 'SerbaUsahaController@submit');
+
 
 // gedung teknologi
 $router->get('/gedung/list', 'GedungController@list');
-$router->post('/gedung/submit', 'GedungController@submit');
+
 $router->get('/gedung/detail', 'GedungController@detail');
 $router->get('/gedung/history', 'GedungController@history');
 $router->get('/gedung/periode-booking', 'GedungController@periodeBooking');
@@ -85,8 +85,25 @@ $router->get('/notif/list', 'NotificationController@list');
 // simpan pinjam
 $router->get('/simpan/content-form', 'SimpanPinjamController@getContentSimpan');
 $router->get('/pinjam/content-form', 'SimpanPinjamController@getContentPinjam');
-$router->post('/simpan/store', 'SimpanPinjamController@submitSimpanan');
-$router->post('/pinjam/store', 'SimpanPinjamController@submitPinjaman');
+
+/**
+* submit order
+*/
+$router->group(['middleware'=>['validLogin']], function() use($router){
+
+  $router->post('/simpan/store', 'SimpanPinjamController@submitSimpanan');
+  $router->post('/pinjam/store', 'SimpanPinjamController@submitPinjaman');
+  
+  // pulsa / paket data
+  $router->post('/pulsa', 'PulsaPaketController@pulsa');
+  $router->post('/paketdata', 'PulsaPaketController@paketdata');
+  $router->post('/listrik-token', 'ListrikController@token');
+  $router->post('/listrik-tagihan', 'ListrikController@tagihan');
+
+  $router->post('/serba-usaha/submit', 'SerbaUsahaController@submit');
+  $router->post('/gedung/submit', 'GedungController@submit');
+  
+});
 
 
 // rekanan
@@ -109,11 +126,7 @@ $router->post('/travel/kereta', 'TravelController@kereta');
 $router->post('/travel/bus', 'TravelController@bus');
 $router->post('/travel/shuttle', 'TravelController@shuttle');
 
-// pulsa / paket data
-$router->post('/pulsa', 'PulsaPaketController@pulsa');
-$router->post('/paketdata', 'PulsaPaketController@paketdata');
-$router->post('/listrik-token', 'ListrikController@token');
-$router->post('/listrik-tagihan', 'ListrikController@tagihan');
+
 
 // layanan menu beranda 
 $router->get('/all-layanan', 'LayananController@all');
@@ -168,7 +181,7 @@ $router->post('/kolektif/update', 'KolektifController@update');
 
 
 
-  ## enhance from lutfi 
+## enhance from lutfi 
 
 // });
 
